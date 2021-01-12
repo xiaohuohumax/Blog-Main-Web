@@ -1,0 +1,19 @@
+<template>
+  <div
+    v-if="kind != 1"
+    class="p-5 text-center theme-card-background bg-white rounded mb-3"
+  >
+    <span v-if="kind == 0">loading...</span>
+    <span v-else-if="kind == 2">loading fail...</span>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    kind: Number,
+  },
+};
+</script>
+
+<style></style>
