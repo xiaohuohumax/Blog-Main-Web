@@ -16,10 +16,10 @@ let allComs = {
 
   // 页面
   ArticleCard: () => import('@/components/pageCard/ArticleCard'), // 文章页面
-  GameCard: () => import('@/components/pageCard/GameCard'), // 游戏页面
   ToolCard: () => import('@/components/pageCard/ToolCard'), // 工具页面
   MusicVideoCard: () => import('@/components/pageCard/MusicVideoCard'), // 音视频页面
   ImageCard: () => import('@/components/pageCard/ImageCard'), // 图片页面
+  TimeCard: () => import('@/components/pageCard/TimeCard'), 
 
   // 工具
   Tools: () => import('@/components/Tools'), // 右侧工具

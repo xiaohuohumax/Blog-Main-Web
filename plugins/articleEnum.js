@@ -1,5 +1,5 @@
 export default {
-  article: "article",
-  image: "image",
-  video: "video"
+  article: "Article",
+  image: "Image",
+  video: "Video"
 }

@@ -1,7 +1,7 @@
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
-    title: 'nuxt-demo',
+    title: '个人博客',
     meta: [{
         charset: 'utf-8'
       },

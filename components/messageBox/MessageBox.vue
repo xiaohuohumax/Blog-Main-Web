@@ -1,12 +1,16 @@
 <template>
-<div class="message">
-    <MessageItem v-for="(item, index) in 5" :key="index" />
-</div>
+  <div>
+    <div v-if="comments.length == 0" class="p-4 text-center">还没有评论~~~</div>
+    <MessageItem v-for="(item, index) in comments" :key="index" :comment="item" />
+  </div>
 </template>
 
 <script>
-export default {}
+export default {
+  props: {
+    comments: Array,
+  },
+};
 </script>
 
-<style>
-</style>
+<style></style>

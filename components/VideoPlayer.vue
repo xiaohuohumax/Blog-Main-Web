@@ -178,7 +178,7 @@ export default {
     videosrc: String,
     logined: Boolean,
     loginpath: String,
-    icon:String,
+    icon: String,
   },
   data() {
     return {
