@@ -16,15 +16,16 @@ export default {
     };
   },
   mounted() {
+    this.selectSebSet();
     this.createLink();
     this.changeLnkHref();
     setTimeout(() => {
       this.flag = false;
     }, 5000);
   },
-  watch: {
-  },
+  watch: {},
   methods: {
+    ...mapMutations("webSet", ["addWebSet"]),
     isover() {
       this.loading = false;
     },
@@ -39,6 +40,14 @@ export default {
     },
     changeLnkHref() {
       // this.link.href = `theme/theme_${this.theme}.css`;
+    },
+    selectSebSet() {
+      this.$http
+        .webSetFindOnly()
+        .then((result) => {
+          this.addWebSet(result);
+        })
+        .catch((err) => {});
     },
   },
   computed: {

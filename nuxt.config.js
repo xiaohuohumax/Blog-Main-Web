@@ -33,7 +33,10 @@ export default {
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
     '@/plugins/iview',
-    '@/plugins/http',
+    {
+      src: '@/plugins/http',
+      mode: 'client'
+    },
     '@/plugins/allComs',
     '@/plugins/swiper',
   ],

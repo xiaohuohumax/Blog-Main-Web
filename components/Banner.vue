@@ -40,7 +40,7 @@ export default {
       },
     };
   },
-  created() {
+  mounted() {
     this.getOneWord();
     this.oneWordTime = setInterval(() => {
       this.getOneWord();

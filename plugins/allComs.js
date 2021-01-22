@@ -27,6 +27,7 @@ let allComs = {
   VideoPlayer: () => import('@/components/VideoPlayer'), 
   SelectLoading: () => import('@/components/SelectLoading'), 
   SelectLoadingOrFail: () => import('@/components/SelectLoadingOrFail'), 
+  BackTime: () => import('@/components/BackTime'), 
   Null: () => import('@/components/Null'), 
 
   // 模块

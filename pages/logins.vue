@@ -83,7 +83,7 @@
                 long
                 class="mb-3"
                 @click="handleLogonSubmit('formlogon')"
-                >登录</Button
+                >注册</Button
               >
               <Button type="error" long ghost @click="handleReset('formlogon')"
                 >清空</Button
@@ -102,7 +102,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapMutations } from "vuex"; 
 export default {
   data() {
     return {

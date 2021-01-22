@@ -220,41 +220,69 @@ let api = {
       inc
     }
   }),
+  webSetFindOnly: () => http({
+    url: '/webset/webSetFindOnly',
+    method: 'post',
+
+  }),
+
+  webUserFindbyid: (id) => http({
+    url: '/user/api/webUserFindbyid',
+    method: 'post',
+    data: {
+      id
+    }
+  }),
+
+  WebUserUpdateById: (id, params) => http({
+    url: '/user/api/WebUserUpdateById',
+    method: 'post',
+    data: {
+      id,
+      params
+    }
+  }),
+
 }
 
 export default ({
-  store
+  app,
+  route
 }, inject) => {
+  let {
+    store,
+    router,
+  } = app;
+
   axios.interceptors.request.use(
     config => {
-      // console.log(config); // 该处可以将config打印出来看一下，该部分将发送给后端（server端）
       let logined = store.state.user.logined; // 用户是否登录
       logined ? config.headers.authorization = store.state.user.key : "";
-      // config.data = config.data ? {} : config.data;
 
-      return config // 对config处理完后返回，下一步将向后端发送请求
+      let selected = store.state.webSet.selected;
+      if (config.url != "/webset/webSetFindOnly" && !selected) {
+        api.webSetFindOnly().then(res => {
+          store.commit('webSet/addWebSet', res);
+        });
+      }
+      return config;
     },
-    error => { // 当发生错误时，执行该部分代码
-      // console.log(error); //调试用
-      return Promise.reject(error)
+    error => {
+      return Promise.reject(error);
     }
   )
 
   axios.interceptors.response.use(
-    response => { // 该处为后端返回整个内容
-      const res = response.data; // 该处可将后端数据取出，提前做一个处理
-      if ('正常情况') {
-        return response // 该处将结果返回，下一步可用于前端页面渲染用
-      } else {
-        // alert('该处异常');
-        return Promise.reject('error')
-      }
+    response => {
+      return response;
     },
     error => {
-      console.log(error)
-      return Promise.reject(error)
+      if (route.path != "/maintenance" && error.response && error.response.status == 503) {
+        return router.push("/maintenance");
+      }
+      return Promise.reject(error);
     }
   )
-  inject('http', api)
 
+  inject('http', api);
 }
