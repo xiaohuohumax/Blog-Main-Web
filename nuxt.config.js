@@ -37,6 +37,10 @@ export default {
       src: '@/plugins/http',
       mode: 'client'
     },
+    {
+      src: '@/plugins/websocket',
+      mode: 'client'
+    },
     '@/plugins/allComs',
     '@/plugins/swiper',
   ],

@@ -7,6 +7,8 @@
 
 <script>
 import { mapState, mapMutations } from "vuex";
+import websocketCode from "@/plugins/websocketCode";
+
 export default {
   data() {
     return {
@@ -16,6 +18,14 @@ export default {
     };
   },
   mounted() {
+    let that = this;
+    // websocket
+    this.$websocket.onmessage((code, data) => {
+      if (code == websocketCode.FLUSH_WEBSET) {
+        that.selectSebSet();
+      }
+    });
+
     this.selectSebSet();
     this.createLink();
     this.changeLnkHref();
@@ -23,7 +33,12 @@ export default {
       this.flag = false;
     }, 5000);
   },
-  watch: {},
+  watch: {
+    // 网站状态监视
+    "webSet.webState"() {
+      this.webSet.webState ? this.$router.go(-1) : this.$router.push("/maintenance");
+    },
+  },
   methods: {
     ...mapMutations("webSet", ["addWebSet"]),
     isover() {
@@ -51,7 +66,7 @@ export default {
     },
   },
   computed: {
-    ...mapState("webSet", ["theme", "themeList"]),
+    ...mapState("webSet", ["webSet", "theme", "themeList"]),
   },
 };
 </script>
