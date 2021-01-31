@@ -1,5 +1,5 @@
 <template>
-<div class="breadcrumbNav bg-white p-2 mb-3 rounded flex-left-center">
+<div class="theme-card-background breadcrumbNav bg-white p-2 mb-3 rounded flex-left-center">
     当前位置:
     <ol class="breadcrumb mb-0 p-0 ml-2">
         <li class="breadcrumb-item" v-for="(item, index) in routerData" :key="index">

@@ -1,6 +1,6 @@
 <template>
   <div class="indexmore">
-    <Card class="mb-3">
+    <Card class="theme-card-background mb-3">
       <div class="text-center my-3">
         <div class="h5">{{ video.title }}</div>
         <div class="small my-2">
@@ -15,7 +15,7 @@
       <div class="">
         <img
           :src="item"
-          class="w-100 border rounded"
+          class="w-100 d-block rounded my-2"
           v-for="(item, index) in video.icons"
           :key="index"
         />
@@ -39,11 +39,11 @@
         </div>
       </div>
     </Card>
-    <Card class="mb-3">
+    <Card class="theme-card-background mb-3">
       <div class="mb-2">留言:</div>
       <TalkBox :articleId="$route.params.id" :kind="kind" @onchange="selectComments" />
     </Card>
-    <Card class="mb-3">
+    <Card class="theme-card-background mb-3">
       <div class="mb-2">评论(20):</div>
       <MessageBox :comments="contexts" />
     </Card>

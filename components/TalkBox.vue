@@ -1,5 +1,5 @@
 <template>
-  <div class="talkBox">
+  <div class=" talkBox">
     <div v-if="logined">
       <div v-if="inf.allowTalk">
         <Input
@@ -10,6 +10,7 @@
           type="textarea"
           v-model.trim="message"
           placeholder="说点啥吧..."
+          @keydown.enter.native="uploadComment"
         />
         <div class="flex-between-center mt-2">
           <div>

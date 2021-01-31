@@ -1,10 +1,21 @@
 import axios from 'axios';
+import qs from 'qs';
 // 超时时间
 // axios.defaults.timeout = 5000;
+
+
+const instance = axios.create({
+  baseURL: "http://localhost1:8888",
+  // timeout: 5000,
+  withCredentials:true
+});
+
 // 基础路径
-axios.defaults.baseURL = 'http://localhost:8888';
+// axios.defaults.baseURL = 'http://localhost:8888';
 // 附加请求头
 let headerAdd = {}
+
+instance.defaults.withCredentials = true; // 允许携带cookie
 
 const http = options => {
   return new Promise((resolve, reject) => {
@@ -15,12 +26,14 @@ const http = options => {
     };
     // 添加附加请求头
     newOptions.headers = {
-      "Content-Type": "application/json",
+      // "Content-Type": "application/json",
+      // 'Content-Type': 'application/x-www-form-urlencoded',
       ...headerAdd,
       ...newOptions.headers,
     };
-    axios({
-      ...newOptions
+    instance({
+      ...newOptions,
+      // data:qs.stringify(newOptions.data)
     }).then(res => {
       if (res.status == 200) {
         resolve(res.data);
@@ -34,10 +47,13 @@ const http = options => {
 };
 
 let api = {
-  oneWord: () => http({
-    url: 'https://v1.hitokoto.cn',
-    // method: 'post',
-  }),
+  // oneWord: () => http({
+  //   url: 'https://v1.hitokoto.cn',
+  //   // method: 'post',
+  // }),
+
+  oneWord: () => Promise.reject("error"),
+
 
   articleFind: () => http({
     url: '/user/api/articlefind',
@@ -254,11 +270,11 @@ export default ({
     router,
   } = app;
 
-  axios.interceptors.request.use(
+  instance.interceptors.request.use(
     config => {
+
       let logined = store.state.user.logined; // 用户是否登录
       logined ? config.headers.authorization = store.state.user.key : "";
-
       let selected = store.state.webSet.selected;
       if (config.url != "/webset/webSetFindOnly" && !selected) {
         api.webSetFindOnly().then(res => {
@@ -272,7 +288,7 @@ export default ({
     }
   )
 
-  axios.interceptors.response.use(
+  instance.interceptors.response.use(
     response => {
       return response;
     },

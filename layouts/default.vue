@@ -1,12 +1,12 @@
 <template>
-  <div class="app theme-background">
+  <div class="app theme-background theme-color bg-dark">
     <Loading :loading="flag" @isover="isover" />
     <Nuxt />
   </div>
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapMutations, mapGetters } from "vuex";
 import websocketCode from "@/plugins/websocketCode";
 
 export default {
@@ -38,6 +38,9 @@ export default {
     "webSet.webState"() {
       this.webSet.webState ? this.$router.go(-1) : this.$router.push("/maintenance");
     },
+    "webSet.webTheme"() {
+      this.changeLnkHref();
+    },
   },
   methods: {
     ...mapMutations("webSet", ["addWebSet"]),
@@ -54,7 +57,7 @@ export default {
       this.link = link;
     },
     changeLnkHref() {
-      // this.link.href = `theme/theme_${this.theme}.css`;
+      this.link.href = this.themeUrl;
     },
     selectSebSet() {
       this.$http
@@ -66,7 +69,8 @@ export default {
     },
   },
   computed: {
-    ...mapState("webSet", ["webSet", "theme", "themeList"]),
+    ...mapState("webSet", ["webSet"]),
+    ...mapGetters("webSet", ["themeUrl"]),
   },
 };
 </script>

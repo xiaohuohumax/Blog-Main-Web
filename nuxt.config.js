@@ -27,7 +27,8 @@ export default {
     '@assets/mode/bootstrap-24-4.4.1-dist/css/bootstrap.css',
     'iview/dist/styles/iview.css',
     '@fortawesome/fontawesome-free/css/all.css',
-    '@assets/styles/allStyles.less'
+    '@assets/styles/allStyles.less',
+    // '@assets/styles/theme/theme.less',
   ],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)

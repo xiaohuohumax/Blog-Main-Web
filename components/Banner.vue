@@ -1,13 +1,13 @@
 <template>
-  <div class="banner mx-2 mx-md-5 my-3 rounded">
+  <div class="theme-card-background banner mx-2 mx-md-5 my-3 rounded">
     <Carousel autoplay loop :autoplay-speed="5000">
       <CarouselItem v-for="(item, index) in bannerImage" :key="index">
         <div :style="bannerStyle(item)"></div>
       </CarouselItem>
     </Carousel>
-    <div class="one-word text-white font-weight-bold p-2 rounded h5 mb-0">
+    <!-- <div class="one-word text-white font-weight-bold p-2 rounded h5 mb-0">
       {{ oneWord.hitokoto }}
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -41,10 +41,10 @@ export default {
     };
   },
   mounted() {
-    this.getOneWord();
-    this.oneWordTime = setInterval(() => {
-      this.getOneWord();
-    }, 10000);
+    // this.getOneWord();
+    // this.oneWordTime = setInterval(() => {
+    //   this.getOneWord();
+    // }, 10000);
   },
   computed: {},
   methods: {

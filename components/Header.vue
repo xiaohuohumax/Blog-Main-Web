@@ -1,14 +1,14 @@
 <template>
   <div
-    class="header theme-card-background bg-white px-2 px-md-5 py-2 shadow flex-between-center sticky-top"
+    class="theme-card-background theme-header-color bg-white header px-2 px-md-5 py-2 shadow flex-between-center sticky-top"
   >
     <div class="flex-center">
-      <div class="font-weight-bold theme-header-icon" style="font-size: 1.5rem">
+      <div class="font-weight-bold" style="font-size: 1.5rem">
         <!-- {{ set.webName }} -->
       </div>
       <ul class="nav">
         <li class="nav-item px-2" v-for="(item, index) in navArray" :key="index">
-          <nuxt-link :to="item.path">
+          <nuxt-link :to="item.path" class="theme-header-color">
             <Icon :type="item.icon" />
             <span class="d-none d-md-inline">
               {{ item.name }}
@@ -18,7 +18,7 @@
       </ul>
     </div>
     <div v-if="logined" class="flex-center">
-      <nuxt-link to="/userinf">
+      <nuxt-link to="/userinf" class="theme-header-color">
         <div
           class="rounded-circle p-3"
           :style="{
@@ -30,7 +30,7 @@
     </div>
     <div v-else class="flex-center">
       <div class="rounded-circle p-3"></div>
-      <nuxt-link to="/logins">注册登录</nuxt-link>
+      <nuxt-link to="/logins" class="theme-header-color">注册登录</nuxt-link>
     </div>
   </div>
 </template>
@@ -79,7 +79,6 @@ export default {
     ...mapMutations("user", ["logouted"]),
     logoutedNow() {
       this.logouted();
-     
     },
   },
 };

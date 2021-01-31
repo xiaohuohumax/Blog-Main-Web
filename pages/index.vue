@@ -1,5 +1,5 @@
 <template>
-<div class="app bg-dark">
+<div class="app">
     <Header />
     <Banner />
 

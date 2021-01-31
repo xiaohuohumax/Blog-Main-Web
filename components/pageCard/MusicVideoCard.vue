@@ -1,5 +1,5 @@
 <template>
-<div class="videoCard rounded bg-white mb-3">
+<div class="theme-card-background  videoCard rounded bg-white mb-3">
     <nuxt-link :to="`/videomore/${video._id}`">
         <div class="video-card-icon rounded-top" :style="{
           background: `url('${video.icon}') center / cover`,

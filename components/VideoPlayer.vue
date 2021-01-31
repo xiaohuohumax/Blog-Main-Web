@@ -1,5 +1,5 @@
 <template>
-  <div class="video-player rounded shadow borer border-danger">
+  <div class="video-player rounded shadow-sm borer border-danger">
     <div class="appView position-relative" ref="appView">
       <video
         class="appVideo w-100 mb-0 rounded-top"

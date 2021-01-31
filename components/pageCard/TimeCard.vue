@@ -1,9 +1,9 @@
 <template>
-  <TimelineItem :color="time.color">
-    <Card>
+  <TimelineItem :color="time.color" >
+    <Card class="theme-card-background ">
       <div class="font-weight-bold">{{ time.notice }}</div>
       <div class="small">{{ time.uploadTime }}</div>
-      <img v-if="time.icon && time.icon.length > 0" :src="time.icon[0]" class="w-75" />
+      <img v-if="time.icon && time.icon.length > 0" :src="time.icon[0]" class="w-75 rounded" />
     </Card>
   </TimelineItem>
 </template>

@@ -19,12 +19,19 @@ class websocketModel {
       } catch (error) {}
     }
     this.websocket.onopen = () => {}
+    this.websocket.close = () => {
+      this._refsh();
+    }
     this.websocket.onerror = (error) => {
       // 错误重连次数
-      this.connectionSum++;
-      if (this.connectionSum < this.connectionMax) {
-        this.init();
-      }
+      this._refsh();
+    }
+
+  }
+  _refsh() {
+    this.connectionSum++;
+    if (this.connectionSum < 0 || this.connectionSum < this.connectionMax) {
+      this.init();
     }
   }
   // 添加消息回调
@@ -38,7 +45,7 @@ class websocketModel {
 
 let params = {
   url: websocketBaseURL,
-  connectionMax: 5, // 错误重连次数
+  connectionMax: -1, // 错误重连次数 负数一直
 }
 
 export default ({}, inject) => {

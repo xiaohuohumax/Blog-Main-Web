@@ -22,9 +22,9 @@ export default {
   },
   mounted() {
     this.select();
-    this.setTime = setInterval(() => {
-      this.select();
-    }, 5000);
+    // this.setTime = setInterval(() => {
+    //   this.select();
+    // }, 5000);
   },
   destroyed() {
     clearInterval(this.setTime);

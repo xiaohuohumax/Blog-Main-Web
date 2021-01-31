@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <SelectLoadingOrFail :kind="loadingKind" />
-    <Card v-if="loadingKind == 1" class="mb-3">
+    <Card v-if="loadingKind == 1" class="theme-card-background mb-3">
       <Timeline>
         <TimeCard v-for="(item, index) in contexts" :key="index" :time="item" />
       </Timeline>

@@ -1,5 +1,6 @@
 <template>
-  <div class="messageItem d-flex mb-4">
+<Card class="theme-card-background messageItem mb-3">
+  <div class=" d-flex">
     <div class="flex-shrink-0 pr-2">
       <div class="message-item-icon rounded" :style="iconStyle"></div>
     </div>
@@ -13,7 +14,7 @@
 
       <div class="my-2">
         <span
-          :class="!isNiceClick ? 'text-success' : 'text-danger'"
+          :class="!isNiceClick ? '': 'text-danger'"
           class="mr-2"
           @click="niceClick"
         >
@@ -23,6 +24,8 @@
       </div>
     </div>
   </div>
+</Card>
+
 </template>
 
 <script>

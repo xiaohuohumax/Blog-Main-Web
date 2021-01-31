@@ -1,5 +1,5 @@
 <template>
-<div class="articleCard rounded bg-white mb-3">
+<div class="theme-card-background articleCard rounded bg-white mb-3">
     <nuxt-link :to="`/imagemore/${image._id}`">
         <div class="image-card-icon rounded-top" :style="{
           background: `url('${image.icon}') center / cover`,

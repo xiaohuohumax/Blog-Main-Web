@@ -1,6 +1,6 @@
 <template>
   <div class="indexmore">
-    <Card class="mb-3">
+    <Card class="theme-card-background mb-3">
       <div class="text-center my-3">
         <div class="h5">{{ tool.title }}</div>
         <div class="small my-2">
@@ -17,7 +17,7 @@
         :src="tool.toolUrl"
         frameborder="0"
         id="iframe"
-        class="w-100"
+        class="w-100 rounded"
         scrolling="no"
       ></iframe>
       <div class="mb-3">

@@ -1,5 +1,5 @@
 <template>
-<div class="footer border-top px-5 py-3 text-center mt-3 bg-white">
+<div class="theme-card-background footer px-5 py-3 text-center mt-3 bg-white">
     Copyright © 2020 时分雨 All Rights Reserved
 </div>
 </template>

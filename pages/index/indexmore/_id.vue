@@ -1,6 +1,6 @@
 <template>
   <div class="indexmore">
-    <Card class="mb-3">
+    <Card class="theme-card-background mb-3">
       <div class="text-center my-3">
         <div class="h5">{{ article.title }}</div>
         <div class="small my-2">
@@ -13,7 +13,7 @@
         </div>
       </div>
 
-      <div class="mb-3" v-html="article.content"></div>
+      <div class="mb-3 bg-white p-2 rounded" v-html="article.content"></div>
       <div class="mb-3">
         <Button :type="!niceFlag ? 'success' : 'error'" long @click="niceClick">
           <Icon type="md-heart" class="ml-2 mr-1" />{{ niceFlag ? "取消" : "赞" }}
@@ -34,11 +34,11 @@
       </div>
     </Card>
 
-    <Card class="mb-3">
+    <Card class="theme-card-background mb-3">
       <div class="mb-2">留言:</div>
       <TalkBox :articleId="$route.params.id" :kind="kind" @onchange="selectComments" />
     </Card>
-    <Card class="mb-3">
+    <Card class="theme-card-background mb-3">
       <div class="mb-2">评论(20):</div>
       <MessageBox :comments="contexts" />
     </Card>

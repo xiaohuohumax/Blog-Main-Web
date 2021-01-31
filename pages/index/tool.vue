@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div class="mb-3 rounded bg-white">
+    <div class="theme-card-background  mb-3 rounded bg-white">
       <Input
         suffix="ios-search"
         placeholder="搜索"

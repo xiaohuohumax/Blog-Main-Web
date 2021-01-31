@@ -1,30 +1,30 @@
 <template>
   <div class="tools" @mouseover="isShow = true" @mouseout="isShow = false">
-    <Button icon="md-cog" shape="circle" v-show="!isShow"></Button>
+    <Button class="theme-card-background" icon="md-cog" shape="circle" v-show="!isShow"></Button>
     <div class="flex-column align-items-end" :class="isShow ? 'd-flex' : 'd-none'">
       <Button
-        class="mt-2"
+        class="mt-2 theme-card-background"
         icon="md-add"
         title="放大"
         shape="circle"
         @click="fontSizeChange(1)"
       ></Button>
       <Button
-        class="mt-2"
+        class="mt-2 theme-card-background"
         icon="md-remove"
         title="缩小"
         shape="circle"
         @click="fontSizeChange(-1)"
       ></Button>
       <Button
-        class="mt-2"
+        class="mt-2 theme-card-background"
         icon="ios-bowtie"
         title="换肤"
         shape="circle"
         @click="changeThemeNext"
       ></Button>
       <Button
-        class="mt-2"
+        class="mt-2 theme-card-background"
         icon="md-arrow-round-up"
         title="回到顶部"
         shape="circle"
@@ -79,5 +79,8 @@ export default {
   z-index: 100;
   bottom: 2rem;
   right: 1rem;
+  .ivu-btn{
+    border-color: transparent !important;
+  }
 }
 </style>
