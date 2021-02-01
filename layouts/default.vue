@@ -22,11 +22,11 @@ export default {
     // websocket
     this.$websocket.onmessage((code, data) => {
       if (code == websocketCode.FLUSH_WEBSET) {
-        that.selectSebSet();
+        that.selectWebSet();
       }
     });
 
-    this.selectSebSet();
+    this.selectWebSet();
     this.createLink();
     this.changeLnkHref();
     setTimeout(() => {
@@ -59,7 +59,7 @@ export default {
     changeLnkHref() {
       this.link.href = this.themeUrl;
     },
-    selectSebSet() {
+    selectWebSet() {
       this.$http
         .webSetFindOnly()
         .then((result) => {

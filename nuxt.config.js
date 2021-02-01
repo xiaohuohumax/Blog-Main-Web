@@ -1,4 +1,7 @@
+import config from './config'
+
 export default {
+  loading: false,
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
     title: '个人博客',
@@ -54,16 +57,28 @@ export default {
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
-    // https://go.nuxtjs.dev/axios
-    // '@nuxtjs/axios',
+    '@nuxtjs/axios',
   ],
 
   router: {
     middleware: ['routerMeta']
   },
-  // Axios module configuration (https://go.nuxtjs.dev/config-axios)
-  axios: {},
+  axios: {
+    proxy: true,
+    prefix: config.proxyPrefix,
+    credentials: true,
+  },
+  proxy: {
+    '/api': {
+      target: config.backgroundUrl, // 代理地址
+      changeOrigin: true,
+      pathRewrite: {
+        '^/api': '', //将 /api 替换掉
+      },
+    },
+  },
 
-  // Build Configuration (https://go.nuxtjs.dev/config-build)
-  build: {}
+  build: {
+    vendor: ['axios']
+  }
 }

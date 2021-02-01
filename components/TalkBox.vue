@@ -10,7 +10,6 @@
           type="textarea"
           v-model.trim="message"
           placeholder="说点啥吧..."
-          @keydown.enter.native="uploadComment"
         />
         <div class="flex-between-center mt-2">
           <div>
