@@ -84,3 +84,6 @@ textarea {
   /* WebKit browsers */
   color: inherit !important;
 }
+.cursor-pointer {
+  cursor: pointer;
+}

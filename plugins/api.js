@@ -111,12 +111,13 @@ export default (http) => ({
     }
   }),
 
-  webUserLogin: (name, pass) => http({
+  webUserLogin: (name, pass,code) => http({
     url: '/user/webUserLogin',
     method: 'post',
     data: {
       name,
-      pass
+      pass,
+      code
     }
   }),
 

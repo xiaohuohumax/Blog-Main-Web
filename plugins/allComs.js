@@ -36,6 +36,10 @@ let allComs = {
   MessageBox: () => import('@/components/messageBox/MessageBox'), // 留言盒子
   MessageItem: () => import('@/components/messageBox/MessageItem'), // 留言子模块
   // Musicplayer: () => import('@/components/Musicplayer'), // 音乐播放器模块
+
+  // 登录注册
+  LoginItem: () => import('@/components/loginLogon/LoginItem'),
+  LogonItem: () => import('@/components/loginLogon/LogonItem'),
 }
 
 for (const key in allComs) {
