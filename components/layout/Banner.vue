@@ -1,11 +1,9 @@
 <template>
   <div class="theme-card-background banner mx-2 mx-md-5 my-3 rounded">
     <Carousel autoplay :autoplay-speed="5000" v-if="isRouterAlive">
-      <CarouselItem
-        v-for="(item, index) in bannerArray"
-        :key="index"
-        :style="bannerStyle(item)"
-      ></CarouselItem>
+      <CarouselItem v-for="(item, index) in bannerArray" :key="index">
+        <div :style="bannerStyle(item)"></div>
+      </CarouselItem>
     </Carousel>
   </div>
 </template>

@@ -1,4 +1,7 @@
 import config from "@/config"
+import {
+  Time
+} from "iview";
 
 export default () => {
   // 控制台拦截器
@@ -37,9 +40,15 @@ export default () => {
         headerCss: {
           color: "#C1292E",
         },
+      },
+      debug: { // 拦截 console.error
+        ...baseRule,
+        headerInf: "调试",
+        headerCss: {
+          color: "#C1292E",
+        },
       }
     }
-
 
     // css 转 str
     function cssObjToStr(cssObj) {
@@ -54,13 +63,16 @@ export default () => {
       replace(/([A-Z])/g, (arg) => `-${arg.toLowerCase()}`);
     }
 
+    function getNowTime() {
+      return new Date(Date.now()).toLocaleString().replace(/:\d{1,2}$/, ' ');
+    }
 
     for (let key in InterceptRule) {
       const item = InterceptRule[key];
       console[key] = (function (oriLogFunc) {
         return function (...args) {
           oriLogFunc.call(console,
-            `%c${item.headerInf}%c${args[0]}`,
+            `%c${item.headerInf}[${getNowTime()}]%c${args[0]}`,
             cssObjToStr(item.headerCss),
             cssObjToStr(item.contentCss),
             ...args.slice(1));

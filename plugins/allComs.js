@@ -40,9 +40,8 @@ let allComs = {
   Body: () => import('@/components/layout/Body'), // 主体
   Footer: () => import('@/components/layout/Footer'), // 页脚
   Banner: () => import('@/components/layout/Banner'), // 横幅
-  HistoryNav: () => import('@/components/layout/HistoryNav'), // 历史记录
+  HistoryNavLeft: () => import('@/components/layout/HistoryNavLeft'), // 历史记录
   Tools: () => import('@/components/layout/Tools'), // 右侧工具
-
 }
 
 for (const key in allComs) {

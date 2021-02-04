@@ -20,12 +20,12 @@ export const mutations = {
   }
 }
 
-export const getters = {
-  // 添加历史记录
-  historyFilter(state) {
-    return state.history.map(val => ({
-      name: val.name,
-      path: val.path
-    }));
-  }
-}
+// export const getters = {
+//   // 添加历史记录
+//   historyFilter(state) {
+//     return state.history.map(val => ({
+//       name: val.name,
+//       path: val.path
+//     }));
+//   }
+// }

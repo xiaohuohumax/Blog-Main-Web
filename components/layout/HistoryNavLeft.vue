@@ -1,7 +1,5 @@
 <template>
-  <div class="theme-card-background bg-white p-2 mb-3 rounded flex-left-center flex-wrap">
-    <span class="mr-2">当前位置:</span>
-
+  <div class="theme-card-background bg-white p-2 mb-3 rounded flex-left-center">
     <div class="pr-2" v-for="(item, index) in history" :key="index">
       <a @click="intoPath(item)">{{ item.name }}</a>
     </div>

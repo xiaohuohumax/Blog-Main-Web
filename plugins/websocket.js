@@ -23,8 +23,10 @@ class websocketModel {
       this._refsh();
     }
     this.websocket.onerror = (error) => {
+      console.error('websocket link fail%o', error)
       // 错误重连次数
       this._refsh();
+      return false;
     }
 
   }
