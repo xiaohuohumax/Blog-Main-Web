@@ -30,7 +30,7 @@ class websocketModel {
   }
   _refsh() {
     this.connectionSum++;
-    if (this.connectionSum < 0 || this.connectionSum < this.connectionMax) {
+    if (this.connectionMax < 0 || this.connectionSum < this.connectionMax) {
       this.init();
     }
   }

@@ -1,27 +1,21 @@
 <template>
-  <div
-    class="theme-card-background breadcrumbNav bg-white p-2 mb-3 rounded flex-left-center flex-wrap"
-  >
+  <div class="theme-card-background bg-white p-2 mb-3 rounded flex-left-center flex-wrap">
     <span class="mr-2">当前位置:</span>
-    <nuxt-link :to="item.path" v-for="(item, index) in history" :key="index">
-      <span class="mr-2">
-        {{ item.name }}
-      </span>
-    </nuxt-link>
+
+    <div class="pr-2" v-for="(item, index) in history" :key="index">
+      <a @click="intoPath(item)">{{ item.name }}</a>
+    </div>
   </div>
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapMutations, mapGetters } from "vuex";
 export default {
-  data() {
-    return {
-      routerData: [],
-    };
-  },
-
   methods: {
     ...mapMutations("history", ["addHistory"]),
+    intoPath(item) {
+      this.$router.push(item);
+    },
   },
   computed: {
     ...mapState("history", ["history"]),

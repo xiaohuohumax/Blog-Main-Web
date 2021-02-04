@@ -18,13 +18,7 @@ export default {
     };
   },
   mounted() {
-    let that = this;
-    // websocket
-    this.$websocket.onmessage((code, data) => {
-      if (code == websocketCode.FLUSH_WEBSET) {
-        that.selectWebSet();
-      }
-    });
+    this.linkWebsocket();
     this.selectWebSet();
     this.createLink();
     this.changeLnkHref();
@@ -47,6 +41,16 @@ export default {
       this.loading = false;
     },
 
+    linkWebsocket() {
+      let that = this;
+      // websocket
+      this.$websocket.onmessage((code, data) => {
+        if (code == websocketCode.FLUSH_WEBSET) {
+          that.selectWebSet();
+        }
+      });
+    },
+
     createLink() {
       const head = document.head || document.getElementsByTagName("head")[0];
       const link = document.createElement("link");
@@ -56,7 +60,7 @@ export default {
       this.link = link;
     },
     changeLnkHref() {
-      this.link.href = this.themeUrl;
+      this.themeUrl && (this.link.href = this.themeUrl);
     },
     selectWebSet() {
       this.$http

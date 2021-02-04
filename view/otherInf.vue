@@ -51,6 +51,9 @@ export default {
       loadingKind: 0, // 0 加载中 1 加载成功 2 加载失败
     };
   },
+  watch: {
+    "$route.params.id": "select",
+  },
   mounted() {
     this.select();
   },
@@ -64,6 +67,11 @@ export default {
           this.loadingKind = 1;
         })
         .catch((err) => (this.loadingKind = 2));
+    },
+  },
+  computed: {
+    cardIconStyle() {
+      return `background:url("${this.contexts.icon}") center / cover;`;
     },
   },
 };

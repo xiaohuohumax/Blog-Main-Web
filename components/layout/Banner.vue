@@ -5,8 +5,7 @@
         v-for="(item, index) in bannerArray"
         :key="index"
         :style="bannerStyle(item)"
-      >
-      </CarouselItem>
+      ></CarouselItem>
     </Carousel>
   </div>
 </template>

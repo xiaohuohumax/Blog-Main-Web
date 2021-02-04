@@ -117,7 +117,6 @@ export default {
         .then((result) => {
           this.contexts = result.comments;
           this.contextSum = result.commentSum;
-          console.log(result);
         })
         .catch((err) => {});
     },

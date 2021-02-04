@@ -1,5 +1,3 @@
-let baseApi = "/api";
-
 import apiFactory from "./api";
 
 export default ({
@@ -49,15 +47,9 @@ export default ({
 
   instance.interceptors.request.use(
     config => {
-
       let logined = store.state.user.logined; // 用户是否登录
       logined ? config.headers.authorization = store.state.user.key : "";
-      // let selected = store.state.webSet.selected;
-      // if (config.url != `${baseApi}/webset/webSetFindOnly` && !selected) {
-      //   api.webSetFindOnly().then(res => {
-      //     store.commit('webSet/addWebSet', res);
-      //   });
-      // }
+      
       return config;
     },
     error => {

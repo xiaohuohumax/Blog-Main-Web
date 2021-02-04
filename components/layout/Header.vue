@@ -3,9 +3,7 @@
     class="theme-card-background theme-header-color bg-white header px-2 px-md-5 py-2 shadow flex-between-center sticky-top"
   >
     <div class="flex-center">
-      <div class="font-weight-bold" style="font-size: 1.5rem">
-        <!-- {{ set.webName }} -->
-      </div>
+      <div class="font-weight-bold" style="font-size: 1.5rem"></div>
       <ul class="nav">
         <li class="nav-item px-2" v-for="(item, index) in navArray" :key="index">
           <nuxt-link :to="item.path" class="theme-header-color">
