@@ -32,8 +32,8 @@
         </div>
         <!-- 登录 -->
         <div class="w-100">
-          <LoginItem v-if="isLoginOrLogon" :ref="isLoginOrLogon"/>
-          <LogonItem v-else @logoned="logoned"  :ref="isLoginOrLogon" />
+          <LoginItem v-if="isLoginOrLogon" />
+          <LogonItem v-else @logoned="logoned" />
         </div>
       </div>
       <div class="login-title position-absolute font-weight-bold d-none d-lg-block">

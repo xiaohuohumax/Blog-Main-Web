@@ -1,13 +1,9 @@
 export const state = () => ({
-    list: []
-  })
-  
-  export const mutations = {
-    setFontSzie(state, text) {
-      state.list.push({
-        text,
-        done: false
-      })
-    }
+  fontSzie: "16px"
+})
+
+export const mutations = {
+  setFontSzie(state, size) {
+    state.fontSzie = size;
   }
-  
+}

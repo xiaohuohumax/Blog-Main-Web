@@ -1,5 +1,7 @@
 import config from './config'
 
+import routesFunc from './routes/routes'
+
 export default {
   loading: false,
   // Global page headers (https://go.nuxtjs.dev/config-head)
@@ -42,6 +44,10 @@ export default {
       mode: 'client'
     },
     {
+      src: '@/plugins/routerBeforeEach',
+      mode: 'client'
+    },
+    {
       src: '@/plugins/websocket',
       mode: 'client'
     },
@@ -61,7 +67,11 @@ export default {
   ],
 
   router: {
-    middleware: ['routerMeta']
+    middleware: ['routerMeta'],
+    extendRoutes(routes, resolve) {
+      routes.length = 0;
+      routes.push(...routesFunc(resolve))
+    }
   },
   axios: {
     proxy: true,

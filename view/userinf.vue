@@ -55,9 +55,6 @@
 <script>
 import { mapState, mapMutations } from "vuex";
 export default {
-  meta: {
-    title: "图包分享",
-  },
   data() {
     return {
       contextSum: 0, // 总数

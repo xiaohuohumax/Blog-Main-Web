@@ -19,7 +19,11 @@
     <FormItem label="验证码" prop="code">
       <div class="d-flex">
         <Input class="mr-2" v-model="logonValDate.code"></Input>
-        <img :src="codeUrl" class="bg-white rounded cursor-pointer" @click="changeCode" />
+        <img
+          :src="codeUrl"
+          class="log-code rounded cursor-pointer"
+          @click="changeCode"
+        />
       </div>
     </FormItem>
     <FormItem class="text-center">
@@ -37,12 +41,6 @@
 import { mapState, mapMutations } from "vuex";
 import config from "@/config";
 export default {
-  props: {
-    ref: Boolean,
-  },
-  watch: {
-    ref: "changeCode",
-  },
   data() {
     return {
       codeFlag: 0,
@@ -103,6 +101,9 @@ export default {
       },
     };
   },
+  mounted() {
+    this.changeCode();
+  },
   methods: {
     ...mapMutations("user", ["putUser"]),
 
@@ -148,4 +149,9 @@ export default {
 };
 </script>
 
-<style lang="less"></style>
+<style lang="less">
+.log-code {
+  min-width: 3rem;
+  background: #5a5c60;
+}
+</style>

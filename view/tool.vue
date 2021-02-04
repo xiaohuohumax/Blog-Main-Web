@@ -1,5 +1,15 @@
 <template>
-  <div class="">
+  <div class="home">
+    <div class="theme-card-background  mb-3 rounded bg-white">
+      <Input
+        suffix="ios-search"
+        placeholder="搜索"
+        style="width: auto"
+        v-model="selectWorld"
+        @keydown.enter.native="selectInput"
+      />
+    </div>
+
     <SelectLoadingOrFail :kind="loadingKind" />
     <div v-if="loadingKind == 1">
       <Null v-if="contexts.length == 0" />
@@ -12,7 +22,7 @@
           v-for="(item, index) in contexts"
           :key="index"
         >
-          <ImageCard :image="item" />
+          <ToolCard :tool="item" />
         </Col>
       </Row>
     </div>
@@ -29,9 +39,6 @@
 
 <script>
 export default {
-  meta: {
-    title: "图包分享",
-  },
   data() {
     return {
       contextSum: 0, // 总数
@@ -42,6 +49,7 @@ export default {
       page: 1,
 
       loadingKind: 0, // 0 加载中 1 加载成功 2 加载失败
+      selectWorld: "", // 搜索关键词
     };
   },
   mounted() {
@@ -51,10 +59,10 @@ export default {
     select() {
       this.loadingKind = 0;
       this.$http
-        .imageFindPage(this.page, this.pageSteep)
+        .toolFindByPage(this.page, this.pageSteep, this.selectWorld)
         .then((result) => {
-          this.contexts = result.images;
-          this.contextSum = result.imageSum;
+          this.contexts = result.tools;
+          this.contextSum = result.toolSum;
           this.loadingKind = 1;
         })
         .catch((err) => (this.loadingKind = 2));
@@ -62,6 +70,9 @@ export default {
     pageChange(num) {
       this.page = num;
       this.select();
+    },
+    selectInput() {
+      this.pageChange(1);
     },
   },
 };

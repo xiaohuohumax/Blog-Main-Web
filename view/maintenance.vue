@@ -17,7 +17,11 @@
 <script>
 import { mapState, mapMutations } from "vuex";
 export default {
-  mounted() {},
+  mounted() {
+    if (this.webSet.webState) {
+      this.$router.push("/");
+    }
+  },
   methods: {
     ...mapMutations("webSet", ["addWebSet"]),
     ...mapMutations("user", ["putUser"]),

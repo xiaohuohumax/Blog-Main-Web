@@ -1,21 +1,13 @@
 <template>
   <div class="home">
     <SelectLoadingOrFail :kind="loadingKind" />
-    <div v-if="loadingKind == 1">
+    <Card v-if="loadingKind == 1" class="theme-card-background mb-3">
+      <Timeline>
+        <TimeCard v-for="(item, index) in contexts" :key="index" :time="item" />
+      </Timeline>
       <Null v-if="contexts.length == 0" />
-      <Row :gutter="16" type="flex">
-        <Col
-          span="8"
-          :xs="{ span: 24 }"
-          :md="{ span: 12 }"
-          :xl="{ span: 8 }"
-          v-for="(item, index) in contexts"
-          :key="index"
-        >
-          <ArticleCard :article="item" />
-        </Col>
-      </Row>
-    </div>
+    </Card>
+
     <div class="text-center">
       <Page
         :page-size="pageSteep"
@@ -29,9 +21,6 @@
 
 <script>
 export default {
-  meta: {
-    title: "首页",
-  },
   data() {
     return {
       contextSum: 0, // 总数
@@ -51,10 +40,10 @@ export default {
     select() {
       this.loadingKind = 0;
       this.$http
-        .articleFindByPage(this.page, this.pageSteep)
+        .noticeFindByPage(this.page, this.pageSteep)
         .then((result) => {
-          this.contexts = result.articles;
-          this.contextSum = result.articleSum;
+          this.contexts = result.notices;
+          this.contextSum = result.noticeSum;
           this.loadingKind = 1;
         })
         .catch((err) => (this.loadingKind = 2));

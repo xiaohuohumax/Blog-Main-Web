@@ -12,14 +12,14 @@
           <Icon type="md-heart" class="ml-2 mr-1" /> {{ video.love }}
         </div>
       </div>
-      <div class="">
-        <img
-          :src="item"
-          class="w-100 d-block rounded my-2"
-          v-for="(item, index) in video.icons"
-          :key="index"
-        />
-      </div>
+      <VideoPlayer
+        :danmu="danmu"
+        :videosrc="video.videoMusicUrl"
+        :logined="logined"
+        :loginpath="'/logins'"
+        :icon="video.icon"
+        @uploaddanmu="uploadDanmu"
+      />
       <div class="my-3">
         <Button :type="!niceFlag ? 'success' : 'error'" long @click="niceClick">
           <Icon type="md-heart" class="ml-2 mr-1" />{{ niceFlag ? "取消" : "赞" }}
@@ -62,9 +62,6 @@
 import { mapState, mapMutations } from "vuex";
 import articleEnum from "@/plugins/articleEnum.js";
 export default {
-  meta: {
-    title: "图包详细",
-  },
   data() {
     return {
       video: {},
@@ -76,14 +73,18 @@ export default {
 
       loading: true, // 加载中
       page: 1,
-      kind: articleEnum.image,
+
+      danmu: [], // 弹幕
+      kind: articleEnum.video,
     };
   },
   mounted() {
     this.select();
     this.selectComments();
+    this.selectDanmu();
   },
   computed: {
+    ...mapState("user", ["inf", "logined"]),
     ...mapState("nice", ["nices"]),
     niceFlag() {
       return this.nices.includes(this.$route.params.id);
@@ -94,16 +95,30 @@ export default {
     // 点赞
     niceClick() {
       this.$http
-        .imageNiceById(this.$route.params.id, this.niceFlag ? -1 : 1)
+        .videoMusicNiceById(this.$route.params.id, this.niceFlag ? -1 : 1)
         .then((result) => {
           this.addNice(this.$route.params.id);
           this.$Message.success("操作成功!");
         })
         .catch((err) => {});
     },
+    uploadDanmu(inf) {
+      this.$http
+        .danmuInsert(
+          this.inf._id,
+          this.$route.params.id,
+          inf.content,
+          inf.start,
+          inf.color
+        )
+        .then((result) => {
+          this.$Message.success("发送成功!");
+        })
+        .catch((err) => {});
+    },
     select() {
       this.$http
-        .imageFindbyid(this.$route.params.id)
+        .videomusicfindbyid(this.$route.params.id)
         .then((result) => {
           this.video = result[0];
         })
@@ -115,18 +130,25 @@ export default {
           this.page,
           this.pageSteep,
           this.$route.params.id,
-          articleEnum.image
+          articleEnum.video
         )
         .then((result) => {
           this.contexts = result.comments;
           this.contextSum = result.commentSum;
-          console.log(result);
         })
         .catch((err) => {});
     },
     pageChange(num) {
       this.page = num;
       this.selectComments();
+    },
+    selectDanmu() {
+      this.$http
+        .danmuFindRByVId(this.$route.params.id)
+        .then((result) => {
+          this.danmu = result;
+        })
+        .catch((err) => {});
     },
   },
 };

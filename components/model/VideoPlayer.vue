@@ -174,16 +174,16 @@
 <script>
 export default {
   props: {
-    danmu: Array,
-    videosrc: String,
-    logined: Boolean,
-    loginpath: String,
-    icon: String,
+    danmu: Array, // 初始弹幕
+    videosrc: String, // 视频url
+    logined: Boolean, // 是否登录
+    loginpath: String, // 登录地址
+    icon: String, // 视频封面
   },
   data() {
     return {
-      damuOpen: true,
-      setOpen: false,
+      damuOpen: true, // 弹幕
+      setOpen: false, // 设置
       fullScreen: false, // 全屏
       toolsOpenSet: undefined, // 计时器对象
       toolsOpen: false, // 是否显示控件
@@ -231,8 +231,8 @@ export default {
       danmuShowSize: 3, // 弹幕显示位置
       danmuAdd: 0, // 新添加的弹幕数量
       // video
-      appVideo: undefined,
-      appCanvas: undefined,
+      appVideo: undefined, // video dom
+      appCanvas: undefined, // canvas dom
       canPaly: false, // 能否播放
       canFire: false, // 能否发射弹幕
       animationFrame: undefined, // 动画对象

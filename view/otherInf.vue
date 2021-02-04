@@ -3,7 +3,7 @@
     <SelectLoadingOrFail :kind="loadingKind" />
     <div v-if="loadingKind == 1">
       <Null v-if="contexts.length == 0" />
-      <Card class="mb-3">
+      <Card class="mb-3 theme-card-background">
         <div class="d-flex">
           <div
             class="card-icon rounded-circle mr-2 shadow-sm flex-shrink-0"
@@ -24,15 +24,12 @@
         <div class="small mt-3">
           <div class="border-bottom mb-2 pb-2">其他信息:</div>
           <Row>
-            <Col class="mb-1" :xs="{ span: 12 }" :lg="{ span: 6 }"
-              >登录IP:{{ contexts.loginIp }}</Col
-            >
             <Col class="mb-1" :xs="{ span: 12 }" :lg="{ span: 6 }">
               登录时间:<Time :time="contexts.loginTime" type="datetime" />
             </Col>
-            <Col class="mb-1" :xs="{ span: 12 }" :lg="{ span: 6 }">
-              允许评论: <i-switch :value="contexts.allowTalk" disabled size="small"
-            /></Col>
+            <!-- <Col class="mb-1" :xs="{ span: 12 }" :lg="{ span: 6 }">
+              允许评论: <i-switch :value="contexts.allowTalk" disabled size="small" />
+            </Col> -->
           </Row>
         </div>
       </Card>
@@ -42,9 +39,6 @@
 
 <script>
 export default {
-  meta: {
-    title: "用户信息",
-  },
   data() {
     return {
       contextSum: 0, // 总数

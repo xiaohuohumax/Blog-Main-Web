@@ -2,7 +2,7 @@
   <div class="body px-2 px-md-5">
     <Row :gutter="16">
       <Col span="18" :lg="{ span: 18 }" :md="{ span: 16 }" :xs="{ span: 24 }">
-        <BreadcrumbNav />
+        <HistoryNav />
         <router-view />
       </Col>
       <Col span="6" :lg="{ span: 6 }" :md="{ span: 8 }" :xs="{ span: 0 }">

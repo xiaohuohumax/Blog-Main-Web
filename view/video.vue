@@ -29,9 +29,6 @@
 
 <script>
 export default {
-  meta: {
-    title: "音视频",
-  },
   data() {
     return {
       contextSum: 0, // 总数

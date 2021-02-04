@@ -1,7 +1,11 @@
 <template>
-  <div class="tools" @mouseover="isShow = true" @mouseout="isShow = false">
-    <Button class="theme-card-background" icon="md-cog" shape="circle" v-show="!isShow"></Button>
-    <div class="flex-column align-items-end" :class="isShow ? 'd-flex' : 'd-none'">
+  <div class="tools">
+    <Button
+      class="tools-button theme-card-background"
+      icon="md-cog"
+      shape="circle"
+    ></Button>
+    <div class="tools-items flex-column align-items-end d-flex">
       <Button
         class="mt-2 theme-card-background"
         icon="md-add"
@@ -76,11 +80,19 @@ export default {
 <style lang="less">
 .tools {
   position: fixed;
-  z-index: 100;
-  bottom: 2rem;
+  z-index: 7000;
+  bottom: 1rem;
   right: 1rem;
-  .ivu-btn{
+  .ivu-btn {
     border-color: transparent !important;
+  }
+
+  &:hover .tools-button,
+  .tools-items {
+    display: none !important;
+  }
+  &:hover .tools-items {
+    display: flex !important;
   }
 }
 </style>

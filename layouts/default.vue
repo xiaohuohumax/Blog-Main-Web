@@ -1,5 +1,5 @@
 <template>
-  <div class="app theme-background theme-color bg-dark">
+  <div class="theme-background bg-dark theme-color">
     <Loading :loading="flag" @isover="isover" />
     <Nuxt />
   </div>
@@ -25,7 +25,6 @@ export default {
         that.selectWebSet();
       }
     });
-
     this.selectWebSet();
     this.createLink();
     this.changeLnkHref();

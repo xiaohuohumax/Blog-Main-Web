@@ -2,25 +2,19 @@
   <div class="indexmore">
     <Card class="theme-card-background mb-3">
       <div class="text-center my-3">
-        <div class="h5">{{ video.title }}</div>
+        <div class="h5">{{ article.title }}</div>
         <div class="small my-2">
-          {{ video.subTitle }}
+          {{ article.subTitle }}
         </div>
         <div class="flex-center">
-          <Icon type="md-eye" class="mr-1" /> {{ video.watch }}
-          <Icon type="md-happy" class="ml-2 mr-1" /> {{ video.nice }}
-          <Icon type="md-heart" class="ml-2 mr-1" /> {{ video.love }}
+          <Icon type="md-eye" class="mr-1" /> {{ article.watch }}
+          <Icon type="md-happy" class="ml-2 mr-1" /> {{ article.nice }}
+          <Icon type="md-heart" class="ml-2 mr-1" /> {{ article.love }}
         </div>
       </div>
-      <VideoPlayer
-        :danmu="danmu"
-        :videosrc="video.videoMusicUrl"
-        :logined="logined"
-        :loginpath="'/logins'"
-        :icon="video.icon"
-        @uploaddanmu="uploadDanmu"
-      />
-      <div class="my-3">
+
+      <div class="mb-3 bg-white p-2 rounded" v-html="article.content"></div>
+      <div class="mb-3">
         <Button :type="!niceFlag ? 'success' : 'error'" long @click="niceClick">
           <Icon type="md-heart" class="ml-2 mr-1" />{{ niceFlag ? "取消" : "赞" }}
         </Button>
@@ -32,13 +26,14 @@
             size="medium"
             type="border"
             color="success"
-            v-for="(item, index) in video.tags"
+            v-for="(item, index) in article.tags"
             :key="index"
             >{{ item }}</Tag
           >
         </div>
       </div>
     </Card>
+
     <Card class="theme-card-background mb-3">
       <div class="mb-2">留言:</div>
       <TalkBox :articleId="$route.params.id" :kind="kind" @onchange="selectComments" />
@@ -62,12 +57,9 @@
 import { mapState, mapMutations } from "vuex";
 import articleEnum from "@/plugins/articleEnum.js";
 export default {
-  meta: {
-    title: "视频详细",
-  },
   data() {
     return {
-      video: {},
+      article: {},
       comments: [], // 弹幕
 
       contextSum: 0, // 总数
@@ -76,21 +68,17 @@ export default {
 
       loading: true, // 加载中
       page: 1,
-
-      danmu: [], // 弹幕
-      kind: articleEnum.video,
+      kind: articleEnum.article,
     };
   },
   mounted() {
     this.select();
     this.selectComments();
-    this.selectDanmu();
   },
   computed: {
-    ...mapState("user", ["inf", "logined"]),
     ...mapState("nice", ["nices"]),
     niceFlag() {
-      return this.nices.includes(this.$route.params.id);
+       return this.nices.includes(this.$route.params.id);
     },
   },
   methods: {
@@ -98,32 +86,18 @@ export default {
     // 点赞
     niceClick() {
       this.$http
-        .videoMusicNiceById(this.$route.params.id, this.niceFlag ? -1 : 1)
+        .articleNiceById(this.$route.params.id, this.niceFlag ? -1 : 1)
         .then((result) => {
           this.addNice(this.$route.params.id);
           this.$Message.success("操作成功!");
         })
         .catch((err) => {});
     },
-    uploadDanmu(inf) {
-      this.$http
-        .danmuInsert(
-          this.inf._id,
-          this.$route.params.id,
-          inf.content,
-          inf.start,
-          inf.color
-        )
-        .then((result) => {
-          this.$Message.success("发送成功!");
-        })
-        .catch((err) => {});
-    },
     select() {
       this.$http
-        .videomusicfindbyid(this.$route.params.id)
+        .articleFindById(this.$route.params.id)
         .then((result) => {
-          this.video = result[0];
+          this.article = result[0];
         })
         .catch((err) => {});
     },
@@ -133,25 +107,18 @@ export default {
           this.page,
           this.pageSteep,
           this.$route.params.id,
-          articleEnum.video
+          articleEnum.article
         )
         .then((result) => {
           this.contexts = result.comments;
           this.contextSum = result.commentSum;
+          console.log(result);
         })
         .catch((err) => {});
     },
     pageChange(num) {
       this.page = num;
       this.selectComments();
-    },
-    selectDanmu() {
-      this.$http
-        .danmuFindRByVId(this.$route.params.id)
-        .then((result) => {
-          this.danmu = result;
-        })
-        .catch((err) => {});
     },
   },
 };

@@ -45,9 +45,6 @@
 <script>
 import articleEnum from "@/plugins/articleEnum.js";
 export default {
-  meta: {
-    title: "工具详细",
-  },
   data() {
     return {
       tool: {},
@@ -66,14 +63,22 @@ export default {
         })
         .catch((err) => {});
     },
+    frameListener(event) {
+      var data = event.data;
+      if (!data.height) return;
+      document.getElementById("iframe").height = data.height;
+    },
     addListener() {
-      window.addEventListener("message", function (event) {
-        var data = event.data;
-        if (!data.height) return;
-        document.getElementById("iframe").height = data.height;
-      });
+      window.addEventListener("message", this.frameListener);
+    },
+    removeListener() {
+      window.removeEventListener("message", this.frameListener);
     },
   },
+  beforeDestroy(){
+    this.removeListener();
+
+  }
 };
 </script>
 
