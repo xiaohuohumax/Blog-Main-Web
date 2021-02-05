@@ -102,7 +102,7 @@ export default {
         })
         .catch((err) => {});
     },
-    uploadDanmu(inf) {
+    uploadDanmu(inf, callback) {
       this.$http
         .danmuInsert(
           this.inf._id,
@@ -113,8 +113,9 @@ export default {
         )
         .then((result) => {
           this.$Message.success("发送成功!");
+          callback(true);
         })
-        .catch((err) => {});
+        .catch((err) => callback(false));
     },
     select() {
       this.$http

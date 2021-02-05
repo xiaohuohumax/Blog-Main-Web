@@ -504,7 +504,7 @@ export default {
           if (flag) {
             this.addDanmu();
           } else {
-            alert("error");
+            console.log("发送弹幕失败!");
           }
           this.userDamu = "";
         }
