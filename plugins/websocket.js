@@ -1,5 +1,6 @@
+import config from '../config'
 // 基础路径
-let websocketBaseURL = 'ws://localhost:8889';
+let websocketBaseURL = config.websocketBaseURL;
 
 // websocket 封装
 class websocketModel {

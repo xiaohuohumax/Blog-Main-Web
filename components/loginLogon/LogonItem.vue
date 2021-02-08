@@ -123,7 +123,7 @@ export default {
               this.logonValDate.code
             )
             .then((result) => {
-              this.$Message[result.flag ? "success" : "error"](result.message);
+              this.$Message[result.flag ? "success" : "error"](result.msg);
               if (result.flag) {
                 // 注册成功
                 this.logonValDate.name = "";

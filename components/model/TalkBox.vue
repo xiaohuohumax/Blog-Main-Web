@@ -53,10 +53,10 @@ export default {
         .commentInsert(this.inf._id, this.articleId, this.kind, this.message)
         .then((res) => {
           if (res.flag) {
-            this.$Message.success(res.message);
+            this.$Message.success(res.msg);
             this.$emit("onchange"); // 提醒评论已经改变
           } else {
-            this.$Message.error(res.message);
+            this.$Message.error(res.smg);
           }
           this.message = "";
         })

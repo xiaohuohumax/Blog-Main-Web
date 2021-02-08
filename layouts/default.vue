@@ -31,7 +31,7 @@ export default {
     "webSet.webState"() {
       this.webSet.webState ? this.$router.go(-1) : this.$router.push("/maintenance");
     },
-    "webSet.webTheme"() {
+    theme() {
       this.changeLnkHref();
     },
   },
@@ -41,9 +41,9 @@ export default {
       this.loading = false;
     },
 
+    // 连接webosocket
     linkWebsocket() {
       let that = this;
-      // websocket
       this.$websocket.onmessage((code, data) => {
         if (code == websocketCode.FLUSH_WEBSET) {
           that.selectWebSet();
@@ -51,6 +51,7 @@ export default {
       });
     },
 
+    // 创建link 标签
     createLink() {
       const head = document.head || document.getElementsByTagName("head")[0];
       const link = document.createElement("link");
@@ -59,20 +60,22 @@ export default {
       head.appendChild(link);
       this.link = link;
     },
+    // 添加link href地址
     changeLnkHref() {
       this.themeUrl && (this.link.href = this.themeUrl);
     },
+    // 查询网站设置
     selectWebSet() {
       this.$http
         .webSetFindOnly()
         .then((result) => {
-          this.addWebSet(result);
+          this.addWebSet(result.data);
         })
         .catch((err) => {});
     },
   },
   computed: {
-    ...mapState("webSet", ["webSet"]),
+    ...mapState("webSet", ["webSet", "theme"]),
     ...mapGetters("webSet", ["themeUrl"]),
   },
 };

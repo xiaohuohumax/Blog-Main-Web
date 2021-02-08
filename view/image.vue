@@ -50,9 +50,13 @@ export default {
       this.$http
         .imageFindPage(this.page, this.pageSteep)
         .then((result) => {
-          this.contexts = result.images;
-          this.contextSum = result.imageSum;
-          this.loadingKind = 1;
+          if (result.flag) {
+            this.contexts = result.data.images;
+            this.contextSum = result.data.imageSum;
+            this.loadingKind = 1;
+          } else {
+            this.loadingKind = 2;
+          }
         })
         .catch((err) => (this.loadingKind = 2));
     },

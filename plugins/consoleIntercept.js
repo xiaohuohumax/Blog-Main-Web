@@ -1,7 +1,4 @@
 import config from "@/config"
-import {
-  Time
-} from "iview";
 
 export default () => {
   // 控制台拦截器
@@ -72,7 +69,7 @@ export default () => {
       console[key] = (function (oriLogFunc) {
         return function (...args) {
           oriLogFunc.call(console,
-            `%c${item.headerInf}[${getNowTime()}]%c${args[0]}`,
+            `%c${item.headerInf}[${getNowTime()}]%c${args[0]}\n`,
             cssObjToStr(item.headerCss),
             cssObjToStr(item.contentCss),
             ...args.slice(1));

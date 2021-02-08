@@ -59,7 +59,9 @@ export default {
       this.$http
         .toolFindbyid(this.$route.params.id)
         .then((result) => {
-          this.tool = result[0];
+          if (result.flag) {
+            this.tool = result.data[0];
+          }
         })
         .catch((err) => {});
     },
@@ -75,10 +77,9 @@ export default {
       window.removeEventListener("message", this.frameListener);
     },
   },
-  beforeDestroy(){
+  beforeDestroy() {
     this.removeListener();
-
-  }
+  },
 };
 </script>
 

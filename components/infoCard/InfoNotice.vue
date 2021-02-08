@@ -33,8 +33,10 @@ export default {
     select() {
       this.$http
         .noticeFindTop()
-        .then((res) => {
-          res.notices.length > 0 ? (this.notice = res.notices[0]) : "";
+        .then((result) => {
+          if (result.flag) {
+            this.notice = result.data.notices[0];
+          }
         })
         .catch((err) => console.log(err));
     },

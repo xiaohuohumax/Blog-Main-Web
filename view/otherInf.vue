@@ -63,8 +63,12 @@ export default {
       this.$http
         .webUserFindbyid(this.$route.params.id)
         .then((result) => {
-          this.contexts = result[0];
-          this.loadingKind = 1;
+          if (result.flag) {
+            this.contexts = result.data[0];
+            this.loadingKind = 1;
+          } else {
+            this.loadingKind = 2;
+          }
         })
         .catch((err) => (this.loadingKind = 2));
     },

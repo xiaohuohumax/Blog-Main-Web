@@ -31,8 +31,10 @@ export default {
     selectComments() {
       this.$http
         .commentRandom(6)
-        .then((res) => {
-          this.comments = res.comments;
+        .then((result) => {
+          if (result.flag) {
+            this.comments = result.data.comments;
+          }
         })
         .catch((err) => console.log(err));
     },

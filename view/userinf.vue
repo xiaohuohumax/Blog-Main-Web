@@ -78,14 +78,18 @@ export default {
     ...mapMutations("user", ["logouted"]),
 
     update() {
-        if(this.isRight){
-            return this.$Message.error("信息不完整!");
-        }
+      if (this.isRight) {
+        return this.$Message.error("信息不完整!");
+      }
       this.$http
         .WebUserUpdateById(this.inf._id, this.inf)
         .then((result) => {
-          this.$Message.success("更新成功!");
-          this.logouted();
+          if (result.flag) {
+            this.$Message.success("更新成功!");
+            this.logouted();
+          } else {
+            this.$Message.error(result.msg);
+          }
         })
         .catch((err) => {});
     },

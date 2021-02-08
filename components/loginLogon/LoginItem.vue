@@ -104,10 +104,10 @@ export default {
             .then((result) => {
               if (result.flag) {
                 // 登录成功
-                this.putUser(result); // 保存信息到仓库
+                this.putUser(result.data); // 保存信息到仓库
                 this.$router.go(-1);
               } else {
-                this.$Message.error(result.inf);
+                this.$Message.error(result.msg);
                 this.loginValDate.password = "";
                 this.loginValDate.code = "";
                 this.changeCode();

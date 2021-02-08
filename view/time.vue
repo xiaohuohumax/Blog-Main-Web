@@ -42,9 +42,13 @@ export default {
       this.$http
         .noticeFindByPage(this.page, this.pageSteep)
         .then((result) => {
-          this.contexts = result.notices;
-          this.contextSum = result.noticeSum;
-          this.loadingKind = 1;
+          if (result.flag) {
+            this.contexts = result.data.notices;
+            this.contextSum = result.data.noticeSum;
+            this.loadingKind = 1;
+          } else {
+            this.loadingKind = 2;
+          }
         })
         .catch((err) => (this.loadingKind = 2));
     },

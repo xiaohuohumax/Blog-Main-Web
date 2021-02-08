@@ -12,7 +12,7 @@
           v-for="(item, index) in contexts"
           :key="index"
         >
-         <MusicVideoCard :video="item"/>
+          <MusicVideoCard :video="item" />
         </Col>
       </Row>
     </div>
@@ -50,9 +50,13 @@ export default {
       this.$http
         .videomusicFindByPage(this.page, this.pageSteep)
         .then((result) => {
-          this.contexts = result.videoMusics;
-          this.contextSum = result.videoMusicSum;
-          this.loadingKind = 1;
+          if (result.flag) {
+            this.contexts = result.data.videoMusics;
+            this.contextSum = result.data.videoMusicSum;
+            this.loadingKind = 1;
+          } else {
+            this.loadingKind = 2;
+          }
         })
         .catch((err) => (this.loadingKind = 2));
     },
@@ -65,4 +69,3 @@ export default {
 </script>
 
 <style></style>
-

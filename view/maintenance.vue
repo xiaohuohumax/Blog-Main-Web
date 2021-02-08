@@ -29,8 +29,10 @@ export default {
       this.$http
         .webSetFindOnly()
         .then((result) => {
-          this.addWebSet(result);
-          result.webState ? this.$router.push("/") : "";
+          if (result.flag) {
+            this.addWebSet(result.data);
+            result.webState ? this.$router.push("/") : "";
+          }
         })
         .catch((err) => {});
     },

@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div class="theme-card-background  mb-3 rounded bg-white">
+    <div class="theme-card-background mb-3 rounded bg-white">
       <Input
         suffix="ios-search"
         placeholder="搜索"
@@ -61,9 +61,13 @@ export default {
       this.$http
         .toolFindByPage(this.page, this.pageSteep, this.selectWorld)
         .then((result) => {
-          this.contexts = result.tools;
-          this.contextSum = result.toolSum;
-          this.loadingKind = 1;
+          if (result.flag) {
+            this.contexts = result.data.tools;
+            this.contextSum = result.data.toolSum;
+            this.loadingKind = 1;
+          } else {
+            this.loadingKind = 2;
+          }
         })
         .catch((err) => (this.loadingKind = 2));
     },

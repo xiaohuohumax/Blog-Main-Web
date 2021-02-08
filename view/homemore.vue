@@ -78,7 +78,7 @@ export default {
   computed: {
     ...mapState("nice", ["nices"]),
     niceFlag() {
-       return this.nices.includes(this.$route.params.id);
+      return this.nices.includes(this.$route.params.id);
     },
   },
   methods: {
@@ -88,8 +88,12 @@ export default {
       this.$http
         .articleNiceById(this.$route.params.id, this.niceFlag ? -1 : 1)
         .then((result) => {
-          this.addNice(this.$route.params.id);
-          this.$Message.success("操作成功!");
+          if (result.flag) {
+            this.addNice(this.$route.params.id);
+            this.$Message.success("操作成功!");
+          } else {
+            this.$Message.error(result.msg);
+          }
         })
         .catch((err) => {});
     },
@@ -97,7 +101,9 @@ export default {
       this.$http
         .articleFindById(this.$route.params.id)
         .then((result) => {
-          this.article = result[0];
+          if (result.flag) {
+            this.article = result.data[0];
+          }
         })
         .catch((err) => {});
     },
@@ -110,9 +116,10 @@ export default {
           articleEnum.article
         )
         .then((result) => {
-          this.contexts = result.comments;
-          this.contextSum = result.commentSum;
-          console.log(result);
+          if (result.flag) {
+            this.contexts = result.data.comments;
+            this.contextSum = result.data.commentSum;
+          }
         })
         .catch((err) => {});
     },
