@@ -7,10 +7,10 @@ export default (http) => ({
   oneWord: () => Promise.reject("error"),
 
 
-  articleFind: () => http({
-    url: '/user/api/articlefind',
-    method: 'post',
-  }),
+  // articleFind: () => http({
+  //   url: '/user/api/articlefind',
+  //   method: 'post',
+  // }),
   articleFindById: (id) => http({
     url: '/user/api/articlefindbyid',
     method: 'post',
