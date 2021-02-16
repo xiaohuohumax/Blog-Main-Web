@@ -2,18 +2,19 @@
   <div class="theme-card-background banner mx-2 mx-md-5 my-3 rounded">
     <Carousel autoplay :autoplay-speed="5000" v-if="isRouterAlive">
       <CarouselItem v-for="(item, index) in bannerArray" :key="index">
-        <div :style="bannerStyle(item)"></div>
+        <img :src="item" class="icon-card w-100" style="height: 13rem" />
       </CarouselItem>
     </Carousel>
   </div>
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState } from "vuex";
+import config from "@/config.js";
 export default {
   data() {
     return {
-      bannerDefine: [require("@/assets/image/oooo7.jpg")], // 默认横幅
+      bannerDefine: config.banners, // 默认横幅
       isRouterAlive: true,
     };
   },
@@ -25,12 +26,6 @@ export default {
     reloadBanner() {
       this.isRouterAlive = false;
       this.$nextTick(() => (this.isRouterAlive = true));
-    },
-    bannerStyle(item) {
-      return {
-        height: "13rem",
-        background: `url('${item}') center / cover`,
-      };
     },
   },
   computed: {

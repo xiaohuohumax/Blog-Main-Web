@@ -1,5 +1,5 @@
 <template>
-  <div class=" talkBox">
+  <div class="talkBox">
     <div v-if="logined">
       <div v-if="inf.allowTalk">
         <Input
@@ -22,9 +22,7 @@
           </div>
         </div>
       </div>
-      <div class="text-center p-4" v-else>
-        <span @click="updateUserInf">刷新</span> 你已被限制评论~
-      </div>
+      <div class="text-center p-4" v-else>你已被限制评论~</div>
     </div>
     <div v-else class="text-center p-4">
       <nuxt-link to="/logins">您还没有登录,去登陆吧~~</nuxt-link>
@@ -62,7 +60,7 @@ export default {
         })
         .catch((err) => console.log(err));
     },
-    
+
     // ...mapMutations("user", ["logouted"]),
   },
   computed: {

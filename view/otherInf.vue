@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="theme-card-background ">
     <SelectLoadingOrFail :kind="loadingKind" />
     <div v-if="loadingKind == 1">
       <Null v-if="contexts.length == 0" />

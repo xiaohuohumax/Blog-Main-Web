@@ -20,11 +20,10 @@ export default {
   },
   mounted() {
     this.selectComments();
-    // this.setTime = setInterval(() => {
-    //   this.selectComments();
-    // }, 10000);
+
+    // this.setTime = window.setInterval(this.selectComments, 30000);
   },
-  destroyed() {
+  beforeDestroy() {
     clearInterval(this.setTime);
   },
   methods: {

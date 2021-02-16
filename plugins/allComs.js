@@ -34,6 +34,8 @@ let allComs = {
   SelectLoadingOrFail: () => import('@/components/model/SelectLoadingOrFail'), // 
   VideoPlayer: () => import('@/components/model/VideoPlayer'), // 音乐播放器
   TalkBox: () => import('@/components/model/TalkBox'), // 评论盒子
+  ChooseIcon: () => import('@/components/model/ChooseIcon'), // 选择头像
+  
 
   // 布局
   Header: () => import('@/components/layout/Header'), // 页眉

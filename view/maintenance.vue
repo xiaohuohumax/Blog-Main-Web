@@ -48,8 +48,10 @@ export default {
   min-height: 100vh;
   overflow: hidden;
   background-color: #85ffbd;
-  background-image: linear-gradient(145deg, #85ffbd 0%, #fffb7d 100%);
+  // background-image: linear-gradient(145deg, #85ffbd 0%, #fffb7d 100%);
+  background: url("/image/errorpage/city_life.svg") no-repeat center bottom / 50% 50%;
 
+  // background-size: contain;
   position: relative;
   .maintenance-refsh {
     position: absolute;

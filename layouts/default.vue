@@ -1,7 +1,9 @@
 <template>
   <div class="theme-background bg-dark theme-color">
-    <Loading :loading="flag" @isover="isover" />
-    <Nuxt />
+    <div class="defult-background">
+      <Loading :loading="flag" @isover="isover" />
+      <Nuxt />
+    </div>
   </div>
 </template>
 
@@ -37,16 +39,31 @@ export default {
   },
   methods: {
     ...mapMutations("webSet", ["addWebSet"]),
+    ...mapMutations("user", ["putUser"]),
     isover() {
       this.loading = false;
+    },
+    selectMyself() {
+      this.$http
+        .webUserFindBySession()
+        .then((result) => {
+          console.log(result);
+          if (result.flag) {
+            this.putUser(result.data);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
 
     // 连接webosocket
     linkWebsocket() {
-      let that = this;
       this.$websocket.onmessage((code, data) => {
         if (code == websocketCode.FLUSH_WEBSET) {
-          that.selectWebSet();
+          this.selectWebSet();
+        } else if (code == websocketCode.FLUSH_YOURSELF) {
+          this.selectMyself();
         }
       });
     },
@@ -77,8 +94,13 @@ export default {
   computed: {
     ...mapState("webSet", ["webSet", "theme"]),
     ...mapGetters("webSet", ["themeUrl"]),
+    ...mapState("user", ["inf"]),
   },
 };
 </script>
 
-<style lang="less"></style>
+<style lang="less">
+.defult-background {
+  transition: none !important;
+}
+</style>

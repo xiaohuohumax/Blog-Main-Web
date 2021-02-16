@@ -109,18 +109,17 @@ export default {
     uploadDanmu(inf, callback) {
       this.$http
         .danmuInsert(
-          this.inf._id,
           this.$route.params.id,
           inf.content,
           inf.start,
           inf.color
         )
         .then((result) => {
+           callback(result.flag);
           if (result.flag) {
             this.$Message.success("发送成功!");
-            callback(true);
           } else {
-            this.$Message.success(result.msg);
+            this.$Message.error(result.msg);
           }
         })
         .catch((err) => callback(false));

@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapGetters } from "vuex";
+import { mapState, mapMutations } from "vuex";
 export default {
   methods: {
     ...mapMutations("history", ["addHistory"]),

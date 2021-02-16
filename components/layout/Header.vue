@@ -3,7 +3,9 @@
     class="theme-card-background theme-header-color bg-white header px-2 px-md-5 py-2 shadow flex-between-center sticky-top"
   >
     <div class="flex-center">
-      <div class="font-weight-bold" style="font-size: 1.5rem"></div>
+      <div class="font-weight-bold" style="font-size: 1.2rem">
+        {{ webSet.webName }}
+      </div>
       <ul class="nav">
         <li class="nav-item px-2" v-for="(item, index) in navArray" :key="index">
           <nuxt-link :to="item.path" class="theme-header-color">
@@ -17,12 +19,7 @@
     </div>
     <div v-if="logined" class="flex-center">
       <nuxt-link to="/userinf" class="theme-header-color">
-        <div
-          class="rounded-circle p-3"
-          :style="{
-            background: `url('${inf.icon}') center / cover`,
-          }"
-        ></div>
+        <img :src="inf.icon" class="header-user-icon icon-card rounded-circle" />
       </nuxt-link>
       <a class="ml-2" @click="logoutedNow">注销</a>
     </div>
@@ -71,7 +68,7 @@ export default {
   },
   computed: {
     ...mapState("user", ["key", "inf", "logined"]),
-    ...mapState("webSet", ["set"]),
+    ...mapState("webSet", ["webSet"]),
   },
   methods: {
     ...mapMutations("user", ["logouted"]),
@@ -85,5 +82,9 @@ export default {
 <style lang="less">
 .header {
   z-index: 30;
+  .header-user-icon{
+    width: 2rem;
+    height: 2rem;
+  }
 }
 </style>

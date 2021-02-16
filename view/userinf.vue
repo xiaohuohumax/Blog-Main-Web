@@ -1,47 +1,62 @@
 <template>
-  <div class="p-3 rounded bg-white">
+  <div class="theme-card-background p-3 rounded bg-white">
     <div class="text-left" v-if="logined">
       <div class="font-weight-bold mb-4 h6">个人信息</div>
-      <div
-        class="user-icon shadow-sm rounded-circle d-inline-block"
-        :style="{ background: `url('${inf.icon}') center / cover` }"
-      ></div>
+      <Form
+        ref="formUser"
+        :model="userInf"
+        :rules="userRule"
+        label-position="top"
+        class="w-100"
+      >
+        <ChooseIcon
+          class="mb-3"
+          :icon="userInf.icon"
+          :icons="webSet.userDefIcon"
+          @choose="iconChoose"
+        />
 
-      <div class="my-2">昵称</div>
-      <Input v-model.trim="inf.name" placeholder="昵称" />
-      <div class="my-2">昵称</div>
-      <Input v-model.trim="inf.pass" type="password" placeholder="密码" />
+        <FormItem label="昵称" prop="name">
+          <Input v-model="userInf.name"></Input>
+        </FormItem>
+        <FormItem label="密码" prop="pass">
+          <Input v-model="userInf.pass" type="password"></Input>
+        </FormItem>
 
-      <div class="my-2">性别</div>
-      <RadioGroup class="my-1" v-model="inf.genger">
-        <Radio label="男" border></Radio>
-        <Radio label="女" border></Radio>
-        <Radio label="未知" border></Radio>
-      </RadioGroup>
+        <FormItem label="性别" prop="genger">
+          <RadioGroup v-model="userInf.genger">
+            <Radio class="mb-0" label="男" border></Radio>
+            <Radio class="mb-0" label="女" border></Radio>
+            <Radio class="mb-0" label="其他" border></Radio>
+          </RadioGroup>
+        </FormItem>
 
-      <div class="my-2">签名</div>
-      <Input v-model.trim="inf.signature" placeholder="签名" />
+        <FormItem label="签名" prop="signature">
+          <Input v-model="userInf.signature"></Input>
+        </FormItem>
 
-      <div class="text-right mt-2">
-        <Button type="success" @click="update">保存</Button>
-      </div>
+        <FormItem>
+          <Button type="success" @click="handleSubmit('formUser')">保存</Button>
+        </FormItem>
+      </Form>
+
       <div class="userinf-Item-head font-weight-bold mb-2 h6">基本信息</div>
       <div class="flex-between">
         <div class="flex-grow-1">
           <Row type="flex" class="small">
             <Col class="mb-2" :lg="{ span: 12 }" :xl="{ span: 6 }">
-              <span class="text-success mr-2">用户等级:</span>lv{{ inf.level }}
+              <span class="text-success mr-2">用户等级:</span>lv{{ userInf.level }}
             </Col>
             <Col class="mb-2" :lg="{ span: 12 }" :xl="{ span: 6 }">
               <span class="text-success mr-2">登录时间:</span>
-              <Time :time="inf.loginTime" type="datetime" />
+              {{ userInf.loginTime }}
             </Col>
             <Col class="mb-2" :lg="{ span: 12 }" :xl="{ span: 6 }">
-              <span class="text-success mr-2">上次登录IP:</span>{{ inf.loginIp }}
+              <span class="text-success mr-2">上次登录IP:</span>{{ userInf.loginIp }}
             </Col>
             <Col class="mb-2" :lg="{ span: 12 }" :xl="{ span: 6 }">
               <span class="text-success mr-2">注册日期:</span>
-              <Time :time="inf.logonTime" type="datetime" />
+              {{ userInf.logonTime }}
             </Col>
           </Row>
         </div>
@@ -65,28 +80,90 @@ export default {
       page: 1,
 
       loadingKind: 0, // 0 加载中 1 加载成功 2 加载失败
+
+      userInf: {
+        logonTime: "",
+        loginTime: "",
+      }, // 用户信息
+      userRule: {
+        name: [
+          {
+            required: true,
+            message: "昵称不能为空呦~",
+            trigger: "blur",
+          },
+          {
+            type: "string",
+            min: 6,
+            message: "昵称必须大于6位呦~",
+            trigger: "blur",
+          },
+        ],
+        pass: [
+          {
+            required: true,
+            message: "请输入密码",
+            trigger: "blur",
+          },
+          {
+            type: "string",
+            min: 6,
+            message: "密码必须大于6位呦~",
+            trigger: "blur",
+          },
+        ],
+        genger: [
+          {
+            required: true,
+            message: "请选择性别",
+            trigger: "blur",
+          },
+        ],
+      },
     };
   },
   computed: {
     ...mapState("user", ["inf", "logined"]),
-    isRight() {
-      return this.inf.name == "" || this.inf.signature == "";
-    },
+    ...mapState("webSet", ["webSet"]),
+  },
+
+  mounted() {
+    this.logined ? this.select() : "";
   },
 
   methods: {
-    ...mapMutations("user", ["logouted"]),
+    ...mapMutations("user", ["logouted", "putUser"]),
+    iconChoose(item) {
+      this.userInf.icon = item;
+    },
+    handleSubmit(name) {
+      this.$refs[name].validate((valid) => {
+        if (valid) {
+          this.update();
+        }
+      });
+    },
+    select() {
+      this.$http
+        .webUserFindBySession()
+        .then((result) => {
+          if (result.flag) {
+            this.userInf = result.data.inf;
+          } else {
+            this.logouted();
+            this.$Message.error(result.msg);
+          }
+        })
+        .catch((err) => {});
+    },
 
     update() {
-      if (this.isRight) {
-        return this.$Message.error("信息不完整!");
-      }
       this.$http
-        .WebUserUpdateById(this.inf._id, this.inf)
+        .WebUserUpdateBySession(this.userInf)
         .then((result) => {
           if (result.flag) {
             this.$Message.success("更新成功!");
-            this.logouted();
+            this.putUser(result.data);
           } else {
             this.$Message.error(result.msg);
           }

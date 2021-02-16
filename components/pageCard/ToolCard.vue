@@ -1,12 +1,12 @@
 <template>
-  <div class="theme-card-background  p-2 mb-3 rounded bg-white d-flex">
+  <div class="tool-card theme-card-background p-2 mb-3 rounded bg-white d-flex">
     <nuxt-link :to="`/toolmore/${tool._id}`">
-      <div class="game-card-icon rounded mr-2 flex-shrink-0" :style="iconStyle"></div>
+      <img :src="tool.icon" class="tool-card-icon" />
     </nuxt-link>
     <div class="flex-grow-1 d-flex flex-column">
       <div class="tool-title h6 mb-0 flex-shrink-0 d-flex justify-content-between">
         <nuxt-link :to="`/toolmore/${tool._id}`">
-          <span class="pt-1 font-weight-bold">{{ tool.title }}</span>
+          <span class="pt-1 font-weight-bold">[{{tool.kind}}]{{ tool.title }}</span>
         </nuxt-link>
         <Tag color="success">{{ tool.kind }}</Tag>
       </div>
@@ -25,19 +25,21 @@ export default {
   props: {
     tool: Object,
   },
-  computed: {
-    iconStyle() {
-      return {
-        background: `url('${this.tool.icon}') center / cover`,
-      };
-    },
-  },
 };
 </script>
 
 <style lang="less">
-.game-card-icon {
-  width: 5rem;
-  height: 5rem;
+.tool-card {
+  overflow: hidden;
+  &:hover .tool-card-icon {
+    transform: scale(1.05);
+  }
+  .tool-card-icon {
+    width: 5rem;
+    height: 5rem;
+    padding: 0.5rem 0 0 0;
+    object-fit: contain;
+    transition: 0.4s all;
+  }
 }
 </style>

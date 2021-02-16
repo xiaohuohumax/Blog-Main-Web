@@ -15,7 +15,7 @@
       <div class="">
         <img
           :src="item"
-          class="w-100 d-block rounded my-2"
+          class="w-75 mx-auto d-block rounded my-2 shadow-sm"
           v-for="(item, index) in video.icons"
           :key="index"
         />

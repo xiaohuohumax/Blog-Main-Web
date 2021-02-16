@@ -111,7 +111,7 @@ export default (http) => ({
     }
   }),
 
-  webUserLogin: (name, pass,code) => http({
+  webUserLogin: (name, pass, code) => http({
     url: '/user/webUserLogin',
     method: 'post',
     data: {
@@ -136,11 +136,10 @@ export default (http) => ({
       videoId
     }
   }),
-  danmuInsert: (userId, videoId, content, start, color) => http({
+  danmuInsert: ( videoId, content, start, color) => http({
     url: '/user/api/danmuInsert',
     method: 'post',
     data: {
-      userId,
       videoId,
       content,
       start,
@@ -203,13 +202,17 @@ export default (http) => ({
     }
   }),
 
-  WebUserUpdateById: (id, params) => http({
-    url: '/user/api/WebUserUpdateById',
+  WebUserUpdateBySession: (params) => http({
+    url: '/user/api/WebUserUpdateBySession',
     method: 'post',
     data: {
-      id,
       params
     }
   }),
 
+
+  webUserFindBySession: () => http({
+    url: '/user/api/webUserFindBySession',
+    method: 'post',
+  }),
 });

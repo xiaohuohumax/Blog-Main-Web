@@ -7,6 +7,9 @@ export const state = () => ({
 
 export const mutations = {
   putUser(state, res) {
+    if (!res.inf.allowLogin) {
+     return state.logined = false;
+    }
     state.logined = true;
     state.key = res.key;
     state.inf = res.inf;

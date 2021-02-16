@@ -1,12 +1,12 @@
 <template>
-  <div class="error-404 d-flex justify-content-center align-items-center">
-    <div class="font-weight-bold text-center text-md-left">
-      <div class="display-4">404 NOT FOUND!</div>
-      <div class="h6 font-weight-bold mb-3">我们未能找到此网页,你可以尝试:</div>
-      <div class="mb-2">
-        <div>刷新网页</div>
-        <div><nuxt-link to="/">返回首页</nuxt-link></div>
-        <div><a @click="$router.go(-1)">返回上一页</a></div>
+  <div class="error-404 h-100 d-flex align-items-center justify-content-center">
+    <div class="text-center">
+      <img class="w-50" src="/image/errorpage/404.svg" />
+      <div class="text-success mt-2 font-weight-bold mt-3" style="font-size: 20px">
+        404 未找到此页面!
+        <Button type="primary" ghost @click="$router.push('/')">
+          返回首页
+        </Button>
       </div>
     </div>
   </div>

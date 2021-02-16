@@ -87,3 +87,6 @@ textarea {
 .cursor-pointer {
   cursor: pointer;
 }
+.icon-card {
+  object-fit: cover;
+}

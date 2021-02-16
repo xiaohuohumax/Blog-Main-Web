@@ -19,11 +19,7 @@
     <FormItem label="验证码" prop="code">
       <div class="d-flex">
         <Input class="mr-2" v-model="logonValDate.code"></Input>
-        <img
-          :src="codeUrl"
-          class="log-code rounded cursor-pointer"
-          @click="changeCode"
-        />
+        <img :src="codeUrl" class="log-code rounded cursor-pointer" @click="changeCode" />
       </div>
     </FormItem>
     <FormItem class="text-center">
@@ -38,7 +34,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapMutations } from "vuex";
 import config from "@/config";
 export default {
   data() {

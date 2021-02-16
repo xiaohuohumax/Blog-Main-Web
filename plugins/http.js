@@ -49,7 +49,7 @@ export default ({
     config => {
       let logined = store.state.user.logined; // 用户是否登录
       logined ? config.headers.authorization = store.state.user.key : "";
-      
+
       return config;
     },
     error => {
@@ -73,7 +73,11 @@ export default ({
         },
         401() { // 未登录
           store.commit('user/logouted');
-        }
+        },
+        404() { // 未找到
+          console.log("===================")
+          router.push("/error404");
+        },
       }
 
       let resFunc = codeFunc[code];

@@ -13,7 +13,15 @@
         </div>
       </div>
 
-      <div class="mb-3 bg-white p-2 rounded" v-html="article.content"></div>
+      <iframe
+        ref="homePageIframe"
+        class="w-100 rounded bg-white"
+        id="home-page-iframe"
+        v-html="article.content"
+        scrolling="no"
+        frameborder="0"
+      ></iframe>
+
       <div class="mb-3">
         <Button :type="!niceFlag ? 'success' : 'error'" long @click="niceClick">
           <Icon type="md-heart" class="ml-2 mr-1" />{{ niceFlag ? "取消" : "赞" }}
@@ -69,6 +77,8 @@ export default {
       loading: true, // 加载中
       page: 1,
       kind: articleEnum.article,
+
+      iframeResize: null,
     };
   },
   mounted() {
@@ -81,8 +91,40 @@ export default {
       return this.nices.includes(this.$route.params.id);
     },
   },
+  beforeDestroy() {
+    window.clearInterval(this.iframeResize);
+  },
   methods: {
     ...mapMutations("nice", ["addNice"]),
+    iframeResizeFunc() {
+      var iframe = this.$refs.homePageIframe;
+      console.log("===");
+
+      try {
+        var bHeight = iframe.contentWindow.document.body.scrollHeight;
+        var dHeight = iframe.contentWindow.document.documentElement.scrollHeight;
+        iframe.height = Math.min(bHeight, dHeight) - 15;
+      } catch (ex) {}
+    },
+    inframeInit() {
+      // 写入html
+      this.writeIframe(this.article.content);
+
+      // 添加监视
+      window.clearInterval(this.iframeResize);
+      this.iframeResize = window.setInterval(this.iframeResizeFunc, 200);
+    },
+
+    // 写入文章
+    writeIframe(content) {
+      var iframeElement = this.$refs.homePageIframe;
+      var iframeDoc =
+        iframeElement.contentDocument || iframeElement.contentWindow.document;
+      iframeDoc.open();
+      iframeDoc.write(content);
+      iframeDoc.close();
+    },
+
     // 点赞
     niceClick() {
       this.$http
@@ -103,6 +145,7 @@ export default {
         .then((result) => {
           if (result.flag) {
             this.article = result.data[0];
+            this.inframeInit();
           }
         })
         .catch((err) => {});
@@ -131,4 +174,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+#home-page-iframe {
+  overflow: hidden;
+}
+</style>
