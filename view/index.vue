@@ -1,22 +1,22 @@
 <template>
-<div class="app">
+  <div class="app">
     <Header />
     <Banner />
 
     <Body />
     <Footer />
     <Tools />
-</div>
+  </div>
 </template>
 
 <script>
 export default {
-    mounted() { },
-}
+  mounted() {},
+};
 </script>
 
 <style lang="less">
 .app {
-    min-height: 100vh;
+  min-height: 100vh;
 }
 </style>

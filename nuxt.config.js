@@ -29,11 +29,10 @@ export default {
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
-    '@assets/mode/bootstrap-24-4.4.1-dist/css/bootstrap.css',
+    '@assets/mode/bootstrap-24-4.4.1-dist/css/bootstrap.min.css',
     'iview/dist/styles/iview.css',
-    '@fortawesome/fontawesome-free/css/all.css',
+    '@fortawesome/fontawesome-free/css/all.min.css',
     '@assets/styles/allStyles.less',
-    // '@assets/styles/theme/theme.less',
   ],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
@@ -47,7 +46,6 @@ export default {
     '@/plugins/iview',
     {
       src: '@/plugins/http',
-      mode: 'client'
     },
     {
       src: '@/plugins/routerBeforeEach',

@@ -3,6 +3,7 @@
     <div class="defult-background">
       <Loading :loading="flag" @isover="isover" />
       <Nuxt />
+      <MusicPlayer :musics="musics" />
     </div>
   </div>
 </template>
@@ -17,6 +18,30 @@ export default {
       loading: true,
       flag: true,
       link: null,
+
+      musics: [
+        {
+          url: "/audio/musics1.mp3",
+          icon: "/image/snow_fun_re.svg",
+          lrc: "",
+          author: "",
+          name: "",
+        },
+        {
+          url: "/audio/NUMB.mp3",
+          icon: "/image/snow_fun_re.sv",
+          lrc: "http://localhost:8888/virtualFile/eca1b0e6e4f1eca07c3304f66f71bd6b.lrc",
+          author: "",
+          name: "",
+        },
+        {
+          url: "/audio/Joke's On You.mp3",
+          icon: "/image/snow_fun_re.sv",
+          lrc: "http://localhost:8888/virtualFile/32d32f81d85218f0158467ee306af00d.lrc",
+          author: "",
+          name: "",
+        },
+      ],
     };
   },
   mounted() {
@@ -33,6 +58,9 @@ export default {
     "webSet.webState"() {
       this.webSet.webState ? this.$router.go(-1) : this.$router.push("/maintenance");
     },
+    // 字体监视
+    "webSet.webFontFamily": "setFontFamily",
+    $route: "setFontFamily",
     theme() {
       this.changeLnkHref();
     },
@@ -52,11 +80,23 @@ export default {
             this.putUser(result.data);
           }
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        .catch((err) => {});
     },
 
+    // 设置字体
+    setFontFamily() {
+      let webFontFamily = this.webSet.webFontFamily;
+      if (!webFontFamily) return;
+      document.body.style.fontFamily = webFontFamily;
+      // 子窗口
+      let iframes = document.getElementsByTagName("iframe");
+      iframes.forEach((val) => {
+        try {
+          // 排除跨域
+          val.contentWindow.document.body.style.fontFamily = webFontFamily;
+        } catch (error) {}
+      });
+    },
     // 连接webosocket
     linkWebsocket() {
       this.$websocket.onmessage((code, data) => {

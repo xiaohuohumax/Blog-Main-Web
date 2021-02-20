@@ -33,18 +33,24 @@ export default {
   data() {
     return {
       timeRule: {},
+      timeout: null,
     };
   },
   mounted() {
     this.start();
   },
+  beforeDestroy() {
+    window.clearInterval(this.timeout);
+  },
   methods: {
+    // 开始跑时
     start() {
-      setInterval(() => {
+      this.timeout = window.setInterval(() => {
         let timeLess = new Date(this.time) - Date.now();
         this.timeRule = this.formatDuring(timeLess < 0 ? 0 : timeLess);
       }, 500);
     },
+    // 时间格式化
     formatDuring(mss) {
       var days = parseInt(mss / (1000 * 60 * 60 * 24));
       var hours = parseInt((mss % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));

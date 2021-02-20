@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState } from "vuex";
 export default {
   props: {
     articleId: String,
@@ -43,6 +43,7 @@ export default {
     };
   },
   methods: {
+    // 发布评论
     uploadComment() {
       if (this.message == "") {
         return this.$Message.error("评论不能为空呦~~");
@@ -60,8 +61,6 @@ export default {
         })
         .catch((err) => console.log(err));
     },
-
-    // ...mapMutations("user", ["logouted"]),
   },
   computed: {
     ...mapState("user", ["key", "inf", "logined"]),

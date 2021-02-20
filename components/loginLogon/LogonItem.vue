@@ -19,7 +19,13 @@
     <FormItem label="验证码" prop="code">
       <div class="d-flex">
         <Input class="mr-2" v-model="logonValDate.code"></Input>
-        <img :src="codeUrl" class="log-code rounded cursor-pointer" @click="changeCode" />
+
+        <img
+          key="logonCode"
+          :src="codeUrl"
+          class="log-code rounded cursor-pointer"
+          @click="changeCode"
+        />
       </div>
     </FormItem>
     <FormItem class="text-center">
@@ -39,7 +45,7 @@ import config from "@/config";
 export default {
   data() {
     return {
-      codeFlag: 0,
+      codeFlag: Date.now(),
 
       logonValDate: {
         name: "",
@@ -104,7 +110,7 @@ export default {
     ...mapMutations("user", ["putUser"]),
 
     changeCode() {
-      this.codeFlag += 1;
+      this.codeFlag = Date.now();
     },
     handleReset(name) {
       this.$refs[name].resetFields();

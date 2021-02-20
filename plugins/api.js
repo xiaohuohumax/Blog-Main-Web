@@ -136,7 +136,7 @@ export default (http) => ({
       videoId
     }
   }),
-  danmuInsert: ( videoId, content, start, color) => http({
+  danmuInsert: (videoId, content, start, color) => http({
     url: '/user/api/danmuInsert',
     method: 'post',
     data: {
@@ -214,5 +214,12 @@ export default (http) => ({
   webUserFindBySession: () => http({
     url: '/user/api/webUserFindBySession',
     method: 'post',
+  }),
+
+
+  getLrc: (url) => http({
+    url,
+    method: 'post',
+    type: "text"
   }),
 });

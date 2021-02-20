@@ -31,6 +31,7 @@ export default {
   computed: {
     ...mapState("webSet", ["webSet"]),
     ...mapState("font", ["fontSzie"]),
+    // 生成banner数组以供显示
     bannerArray() {
       // 若无banner 则使用默认值
       let bannerIcon = this.webSet.bannerIcon;

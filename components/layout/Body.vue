@@ -15,12 +15,11 @@
 </template>
 
 <script>
-export default {
-  
-};
+export default {};
 </script>
 
 <style>
-.body{
-    min-height: 60vh;
-}</style>
+.body {
+  min-height: 60vh;
+}
+</style>

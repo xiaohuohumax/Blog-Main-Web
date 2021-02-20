@@ -19,7 +19,6 @@ let allComs = {
   // 留言评论
   MessageBox: () => import('@/components/messageBox/MessageBox'), // 留言盒子
   MessageItem: () => import('@/components/messageBox/MessageItem'), // 留言子模块
-  // Musicplayer: () => import('@/components/Musicplayer'), // 音乐播放器模块
 
   // 登录注册
   LoginItem: () => import('@/components/loginLogon/LoginItem'), // 登录
@@ -35,7 +34,8 @@ let allComs = {
   VideoPlayer: () => import('@/components/model/VideoPlayer'), // 音乐播放器
   TalkBox: () => import('@/components/model/TalkBox'), // 评论盒子
   ChooseIcon: () => import('@/components/model/ChooseIcon'), // 选择头像
-  
+  MusicPlayer: () => import('@/components/model/MusicPlayer'), // 音乐播放器模块
+
 
   // 布局
   Header: () => import('@/components/layout/Header'), // 页眉

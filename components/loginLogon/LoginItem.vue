@@ -17,6 +17,7 @@
       <div class="d-flex">
         <Input class="mr-2" v-model="loginValDate.code"></Input>
         <img
+          key="loginCode"
           :src="codeUrl"
           class="log-code rounded cursor-pointer"
           @click="changeCode"
@@ -38,7 +39,7 @@ import config from "@/config";
 export default {
   data() {
     return {
-      codeFlag: 0,
+      codeFlag: Date.now(),
 
       loginValDate: {
         name: "",
@@ -88,10 +89,11 @@ export default {
   methods: {
     ...mapMutations("user", ["putUser"]),
 
+    // 刷新验证码
     changeCode() {
-      this.codeFlag += 1;
+      this.codeFlag = Date.now();
     },
-
+    // 提交
     handleSubmit(name) {
       this.$refs[name].validate((valid) => {
         if (valid) {
@@ -119,11 +121,13 @@ export default {
         }
       });
     },
+    // 清空
     handleReset(name) {
       this.$refs[name].resetFields();
     },
   },
   computed: {
+    // 验证码路径
     codeUrl() {
       return `${config.proxyPrefix}/user/checkCode?i=${this.codeFlag}`;
     },

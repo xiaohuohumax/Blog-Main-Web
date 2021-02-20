@@ -74,10 +74,9 @@ export default ({
         401() { // 未登录
           store.commit('user/logouted');
         },
-        404() { // 未找到
-          console.log("===================")
-          router.push("/error404");
-        },
+        // 404() { // 未找到
+        //   router.push("/error404");
+        // },
       }
 
       let resFunc = codeFunc[code];

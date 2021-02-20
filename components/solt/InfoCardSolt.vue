@@ -16,7 +16,6 @@ export default {}
 <style lang='less'>
 .infoCardSolt {
   .ivu-collapse-header {
-    // background: white !important;
     border-bottom: none !important;
     line-height: 1.2rem !important;
     height: auto !important;

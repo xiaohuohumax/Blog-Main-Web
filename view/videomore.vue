@@ -64,7 +64,7 @@ import articleEnum from "@/plugins/articleEnum.js";
 export default {
   data() {
     return {
-      video: {},
+      // video: {},
       comments: [], // 弹幕
 
       contextSum: 0, // 总数
@@ -78,8 +78,16 @@ export default {
       kind: articleEnum.video,
     };
   },
+  async asyncData({ route, $http, redirect }) {
+    try {
+      return {
+        video: (await $http.videomusicfindbyid(route.params.id)).data[0],
+      };
+    } catch (error) {
+      redirect("/Error404");
+    }
+  },
   mounted() {
-    this.select();
     this.selectComments();
     this.selectDanmu();
   },
@@ -108,14 +116,9 @@ export default {
     },
     uploadDanmu(inf, callback) {
       this.$http
-        .danmuInsert(
-          this.$route.params.id,
-          inf.content,
-          inf.start,
-          inf.color
-        )
+        .danmuInsert(this.$route.params.id, inf.content, inf.start, inf.color)
         .then((result) => {
-           callback(result.flag);
+          callback(result.flag);
           if (result.flag) {
             this.$Message.success("发送成功!");
           } else {
@@ -123,16 +126,6 @@ export default {
           }
         })
         .catch((err) => callback(false));
-    },
-    select() {
-      this.$http
-        .videomusicfindbyid(this.$route.params.id)
-        .then((result) => {
-          if (result.flag) {
-            this.video = result.data[0];
-          }
-        })
-        .catch((err) => {});
     },
     selectComments() {
       this.$http

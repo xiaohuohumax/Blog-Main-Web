@@ -16,13 +16,12 @@ export default () => {
           let url = target.src || target.href;
           console.error(`resource load fail:${url}%o`, target);
         }
-        event.stopPropagation();
+        // event.stopPropagation();
       }, true);
     // 错误拦截
     window.onerror = (event) => {
       console.error(event);
-      return true;
+      // return true;
     }
-
   })(window)
 }

@@ -2,21 +2,22 @@
   <div class="indexmore">
     <Card class="theme-card-background mb-3">
       <div class="text-center my-3">
-        <div class="h5">{{ video.title }}</div>
+        <div class="h5">{{ image.title }}</div>
         <div class="small my-2">
-          {{ video.subTitle }}
+          {{ image.subTitle }}
         </div>
         <div class="flex-center">
-          <Icon type="md-eye" class="mr-1" /> {{ video.watch }}
-          <Icon type="md-happy" class="ml-2 mr-1" /> {{ video.nice }}
-          <Icon type="md-heart" class="ml-2 mr-1" /> {{ video.love }}
+          <Icon type="md-eye" class="mr-1" /> {{ image.watch }}
+          <Icon type="md-happy" class="ml-2 mr-1" /> {{ image.nice }}
+          <Icon type="md-heart" class="ml-2 mr-1" /> {{ image.love }}
         </div>
       </div>
       <div class="">
         <img
           :src="item"
-          class="w-75 mx-auto d-block rounded my-2 shadow-sm"
-          v-for="(item, index) in video.icons"
+          class="mx-auto d-block rounded my-2 shadow-sm"
+          style="max-height: 20rem; max-width: 100%"
+          v-for="(item, index) in image.icons"
           :key="index"
         />
       </div>
@@ -32,7 +33,7 @@
             size="medium"
             type="border"
             color="success"
-            v-for="(item, index) in video.tags"
+            v-for="(item, index) in image.tags"
             :key="index"
             >{{ item }}</Tag
           >
@@ -64,7 +65,7 @@ import articleEnum from "@/plugins/articleEnum.js";
 export default {
   data() {
     return {
-      video: {},
+      // image: {},
       comments: [], // 弹幕
 
       contextSum: 0, // 总数
@@ -76,8 +77,16 @@ export default {
       kind: articleEnum.image,
     };
   },
+  async asyncData({ route, $http, redirect }) {
+    try {
+      return {
+        image: (await $http.imageFindbyid(route.params.id)).data[0],
+      };
+    } catch (error) {
+      redirect("/Error404");
+    }
+  },
   mounted() {
-    this.select();
     this.selectComments();
   },
   computed: {
@@ -101,18 +110,6 @@ export default {
           }
         })
         .catch((err) => {});
-    },
-    select() {
-      this.$http
-        .imageFindbyid(this.$route.params.id)
-        .then((result) => {
-         
-          if (result.flag) {
-            this.video = result.data[0];
-          }
-        })
-        .catch((err) => {
-        });
     },
     selectComments() {
       this.$http

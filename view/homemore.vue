@@ -67,7 +67,7 @@ import articleEnum from "@/plugins/articleEnum.js";
 export default {
   data() {
     return {
-      article: {},
+      // article: {},
       comments: [], // 弹幕
 
       contextSum: 0, // 总数
@@ -81,8 +81,17 @@ export default {
       iframeResize: null,
     };
   },
+  async asyncData({ route, $http, redirect }) {
+    try {
+      return {
+        article: (await $http.articleFindById(route.params.id)).data[0],
+      };
+    } catch (error) {
+      redirect("/Error404");
+    }
+  },
   mounted() {
-    this.select();
+    this.inframeInit();
     this.selectComments();
   },
   computed: {
@@ -98,12 +107,10 @@ export default {
     ...mapMutations("nice", ["addNice"]),
     iframeResizeFunc() {
       var iframe = this.$refs.homePageIframe;
-      console.log("===");
-
       try {
-        var bHeight = iframe.contentWindow.document.body.scrollHeight;
-        var dHeight = iframe.contentWindow.document.documentElement.scrollHeight;
-        iframe.height = Math.min(bHeight, dHeight) - 15;
+        var bHeight = iframe.contentWindow.document.body.offsetHeight;
+        var dHeight = iframe.contentWindow.document.documentElement.offsetHeight;
+        iframe.height = Math.max(bHeight, dHeight);
       } catch (ex) {}
     },
     inframeInit() {
@@ -121,7 +128,7 @@ export default {
       var iframeDoc =
         iframeElement.contentDocument || iframeElement.contentWindow.document;
       iframeDoc.open();
-      iframeDoc.write(content);
+      iframeDoc.write(`<!doctype html><html><head></head><body>${content}</body></html>`);
       iframeDoc.close();
     },
 
@@ -135,17 +142,6 @@ export default {
             this.$Message.success("操作成功!");
           } else {
             this.$Message.error(result.msg);
-          }
-        })
-        .catch((err) => {});
-    },
-    select() {
-      this.$http
-        .articleFindById(this.$route.params.id)
-        .then((result) => {
-          if (result.flag) {
-            this.article = result.data[0];
-            this.inframeInit();
           }
         })
         .catch((err) => {});

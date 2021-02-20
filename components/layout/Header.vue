@@ -3,7 +3,7 @@
     class="theme-card-background theme-header-color bg-white header px-2 px-md-5 py-2 shadow flex-between-center sticky-top"
   >
     <div class="flex-center">
-      <div class="font-weight-bold" style="font-size: 1.2rem">
+      <div class="font-weight-bold" style="font-size: 1.2rem" :title="webSet.webDescription">
         {{ webSet.webName }}
       </div>
       <ul class="nav">
@@ -21,7 +21,7 @@
       <nuxt-link to="/userinf" class="theme-header-color">
         <img :src="inf.icon" class="header-user-icon icon-card rounded-circle" />
       </nuxt-link>
-      <a class="ml-2" @click="logoutedNow">注销</a>
+      <a class="ml-2" @click="logouted">注销</a>
     </div>
     <div v-else class="flex-center">
       <div class="rounded-circle p-3"></div>
@@ -72,9 +72,6 @@ export default {
   },
   methods: {
     ...mapMutations("user", ["logouted"]),
-    logoutedNow() {
-      this.logouted();
-    },
   },
 };
 </script>

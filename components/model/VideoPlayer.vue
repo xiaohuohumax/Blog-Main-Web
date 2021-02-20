@@ -253,6 +253,7 @@ export default {
     };
   },
   watch: {
+    // 控件显示
     toolsOpen(newVal) {
       if (newVal) {
         clearTimeout(this.toolsOpenSet);
@@ -263,49 +264,70 @@ export default {
     },
   },
   mounted() {
-    this.appVideo = this.$refs.appVideo;
-    this.appCanvas = this.$refs.appCanvas;
+    this.init();
+  },
+  beforeDestroy() {
+    this.appVideo.removeEventListener("canplay", this.canplayListener);
+    this.appVideo.removeEventListener("play", this.playListener);
+    this.appVideo.removeEventListener("pause", this.pauseListener);
+    this.appVideo.removeEventListener("ended", this.endedListener);
+    this.appVideo.removeEventListener("timeupdate", this.timeupdateListener);
+    window.removeEventListener("resize", this.windowResizeListener);
+    let appView = this.$refs.appView;
+    appView.addEventListener("mouseover", this.mouseoverTrueListener);
+    appView.addEventListener("mousemove", this.mouseoverTrueListener);
+    appView.addEventListener("mouseout", this.mouseoverFalseListener);
+  },
+  methods: {
+    init() {
+      this.appVideo = this.$refs.appVideo;
+      this.appCanvas = this.$refs.appCanvas;
 
-    this.videoToolsOpen(); // 控件显示监视
-    this.toolsOpen = true; // 默认显示几秒
+      this.videoToolsOpen(); // 控件显示监视
+      this.toolsOpen = true; // 默认显示几秒
 
-    // 视频是否可以播放
-    this.appVideo.addEventListener("canplay", () => {
+      // 视频是否可以播放
+      this.appVideo.addEventListener("canplay", this.canplayListener);
+      //监听播放开始
+      this.appVideo.addEventListener("play", this.playListener);
+      //监听播放结束
+      this.appVideo.addEventListener("pause", this.pauseListener);
+      //监听播放结束
+      this.appVideo.addEventListener("ended", this.endedListener);
+      // 添加弹幕
+      this.appVideo.addEventListener("timeupdate", this.timeupdateListener);
+      // 窗口变化
+      window.addEventListener("resize", this.windowResizeListener);
+    },
+    canplayListener() {
       this.canPaly = true;
       this.danmuTransformation();
       this.setCanvasSize();
       window.cancelAnimationFrame(this.animationFrame); // 清除弹幕动画防止重复调用
       this.drawFrame();
       this.duration = this.bySecondToString(this.appVideo.duration); // 设置总时长
-    });
-    //监听播放开始
-    this.appVideo.addEventListener("play", () => {
-      this.canFire = true;
-    });
-    //监听播放结束
-    this.appVideo.addEventListener("pause", () => {
+    },
+    pauseListener() {
       this.canFire = false;
-    });
-    //监听播放结束
-    this.appVideo.addEventListener("ended", () => {
+    },
+    playListener() {
+      this.canFire = true;
+    },
+    endedListener() {
       this.clearFrame();
       this.danmuReadyList = [];
       this.vidoPlayOrPause(false);
-    });
-    // 添加弹幕
-    this.appVideo.addEventListener("timeupdate", () => {
+    },
+    timeupdateListener() {
       this.setTime((this.appVideo.currentTime / this.appVideo.duration) * 100);
       this.currentTime = this.bySecondToString(this.appVideo.currentTime); // 设置时长
       if (this.danmuOpen) {
         this.addDannmu();
       }
-    });
-    // 窗口变化
-    window.addEventListener("resize", () => {
+    },
+    windowResizeListener() {
       this.setCanvasSize();
-    });
-  },
-  methods: {
+    },
     // 静音
     vSoundOpen() {
       if (this.canPaly) {
@@ -316,15 +338,15 @@ export default {
     // 显示控件
     videoToolsOpen() {
       let appView = this.$refs.appView;
-      appView.addEventListener("mouseover", () => {
-        this.toolsOpen = true;
-      });
-      appView.addEventListener("mousemove", () => {
-        this.toolsOpen = true;
-      });
-      appView.addEventListener("mouseout", () => {
-        this.toolsOpen = false;
-      });
+      appView.addEventListener("mouseover", this.mouseoverTrueListener);
+      appView.addEventListener("mousemove", this.mouseoverTrueListener);
+      appView.addEventListener("mouseout", this.mouseoverFalseListener);
+    },
+    mouseoverTrueListener() {
+      this.toolsOpen = true;
+    },
+    mouseoverFalseListener() {
+      this.toolsOpen = false;
     },
     // 全屏切换
     videoFullScreen() {
@@ -364,16 +386,19 @@ export default {
       let sec = parseInt(time % 60);
       return `${min > 9 ? min : `0${min}`}:${sec > 9 ? sec : `0${sec}`}`;
     },
+    // 设置显示时间
     setTime(width) {
       if (this.canPaly && this.$refs.appSTBTimeItem) {
         this.$refs.appSTBTimeItem.style.width = `${width}%`;
       }
     },
+    // 添加emoji
     addEmoji(emojiID) {
       if (!this.danmuFire) {
         this.userDamu += String.fromCodePoint(emojiID);
       }
     },
+    // 获取emoji 区间数组
     getEmoji(size) {
       let res = [];
       for (let x = size[0]; x < size[1]; x++) {
@@ -381,6 +406,7 @@ export default {
       }
       return res;
     },
+    // 选中emoji
     setEmojiCho(cho) {
       this.emojiCho = cho;
     },
@@ -546,7 +572,6 @@ export default {
     background: none !important;
   }
   line-height: 0;
-  // overflow: hidden;
   .appView {
     background: black;
     overflow: hidden;

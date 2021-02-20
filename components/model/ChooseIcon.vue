@@ -17,10 +17,11 @@
       ></Button>
       <img
         :src="item"
-        v-for="(item, index) in icons"
+        v-for="(item, index) in iconsShow"
         :key="index"
         @click="choose(item)"
-        class="user-icon cursor-pointer mb-2 mr-2 shadow-sm rounded-circle d-inline-block"
+        class="user-icon cursor-pointer mb-2 mr-2 shadow-sm rounded-circle d-inline-block p-1"
+        :class="{ 'border border-success': icon == item }"
       />
     </div>
   </div>
@@ -40,17 +41,38 @@ export default {
   },
   data() {
     return {
+      iconsShow: [],
       chooseOpen: false,
+      timout: null,
     };
   },
+  mounted() {
+    this.init();
+  },
+  beforeDestroy() {
+    window.clearInterval(this.timout);
+  },
   methods: {
+    // 初始化
+    init() {
+      let index = 0;
+      this.timout = window.setInterval(() => {
+        if (index >= this.icons.length) {
+          return window.clearInterval(this.timout);
+        }
+        this.iconsShow.push(this.icons[index++]);
+      }, 100);
+    },
+    // 是否选择头像
     chooseChange() {
       this.chooseOpen = !this.chooseOpen;
     },
+    // 选中头像
     choose(item) {
       this.$emit("choose", item);
       this.chooseOpen = false;
     },
+    // 取消选择头像
     choosefail() {
       this.chooseOpen = false;
     },

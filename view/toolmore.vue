@@ -43,28 +43,25 @@
 </template>
 
 <script>
-import articleEnum from "@/plugins/articleEnum.js";
 export default {
   data() {
     return {
-      tool: {},
+      // tool: {},
     };
   },
+  async asyncData({ route, $http, redirect }) {
+    try {
+      return {
+        tool: (await $http.toolFindbyid(route.params.id)).data[0],
+      };
+    } catch (error) {
+      redirect("/Error404");
+    }
+  },
   mounted() {
-    this.select();
     this.addListener();
   },
   methods: {
-    select() {
-      this.$http
-        .toolFindbyid(this.$route.params.id)
-        .then((result) => {
-          if (result.flag) {
-            this.tool = result.data[0];
-          }
-        })
-        .catch((err) => {});
-    },
     frameListener(event) {
       var data = event.data;
       if (!data.height) return;
@@ -78,7 +75,7 @@ export default {
     },
   },
   beforeDestroy() {
-    this.removeListener();
+    // this.removeListener();
   },
 };
 </script>

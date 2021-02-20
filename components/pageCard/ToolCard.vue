@@ -3,7 +3,7 @@
     <nuxt-link :to="`/toolmore/${tool._id}`">
       <img :src="tool.icon" class="tool-card-icon" />
     </nuxt-link>
-    <div class="flex-grow-1 d-flex flex-column">
+    <div class="flex-grow-1 d-flex flex-column ml-2">
       <div class="tool-title h6 mb-0 flex-shrink-0 d-flex justify-content-between">
         <nuxt-link :to="`/toolmore/${tool._id}`">
           <span class="pt-1 font-weight-bold">[{{tool.kind}}]{{ tool.title }}</span>

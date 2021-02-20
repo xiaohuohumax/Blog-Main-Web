@@ -2,7 +2,7 @@
   <Card class="theme-card-background messageItem mb-3">
     <div class="d-flex">
       <div class="flex-shrink-0 pr-2">
-        <div class="message-item-icon rounded" :style="iconStyle"></div>
+        <img :src="comment.user.icon" class="icon-card message-item-icon rounded" />
       </div>
       <div class="flex-grow-1">
         <p class="font-weight-bold">
@@ -35,13 +35,9 @@ export default {
   },
   computed: {
     ...mapState("nice", ["nices"]),
+    // 是否点过赞[本地缓存]
     isNiceClick() {
       return this.nices.includes(this.comment._id);
-    },
-    iconStyle() {
-      return {
-        background: `url('${this.comment.user.icon}') center / cover`,
-      };
     },
   },
 

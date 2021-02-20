@@ -1,7 +1,10 @@
 <template>
   <div ref="loading" class="loading" v-if="isShow" :class="unOver ? '' : 'loading-over'">
     <div class="line" :style="item" v-for="(item, index) in lines" :key="index"></div>
-    <div :class="nowFireEnd ? 'fire-end' : ''" class="fire d-flex justify-content-center align-items-center">
+    <div
+      :class="nowFireEnd ? 'fire-end' : ''"
+      class="fire d-flex justify-content-center align-items-center"
+    >
       <span>🚀</span>
     </div>
     <div class="loading-text text-white">
@@ -28,6 +31,7 @@ export default {
     };
   },
   watch: {
+    // 加载完成切换
     loading() {
       !this.loading ? this.clearLoading() : "";
     },
@@ -40,12 +44,14 @@ export default {
     },
   },
   methods: {
+    // 加载动画结束
     clearLoading() {
       this.nowFireEnd = true;
       this.unOver = false;
       this.lines = [];
       this.$emit("isover");
     },
+    // 添加移动的线
     addLine() {
       for (let x = 0; x < this.lineSum; x++) {
         let height = this.getRandom(60, 160) + "px";
@@ -56,6 +62,7 @@ export default {
         this.lines.push({ height, width, left, animationDuration, animationDelay });
       }
     },
+    // 获取随机数
     getRandom(minNum, maxNum) {
       return parseInt(Math.random() * (maxNum - minNum + 1) + minNum, 10);
     },
@@ -83,7 +90,8 @@ export default {
   100% {
     bottom: 20%;
     transform: translate(-50%, -40px) rotate(-45deg);
-    box-shadow: 0 0 10px rgba(13, 222, 250, 0.603), inset 0 0 10px rgba(13, 222, 250, 0.603);
+    box-shadow: 0 0 10px rgba(13, 222, 250, 0.603),
+      inset 0 0 10px rgba(13, 222, 250, 0.603);
   }
 }
 

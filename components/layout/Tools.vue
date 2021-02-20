@@ -25,7 +25,7 @@
         icon="ios-bowtie"
         title="换肤"
         shape="circle"
-        @click="changeThemeNext"
+        @click="changeThemeNextFilter"
       ></Button>
       <Button
         class="mt-2 theme-card-background"
@@ -47,6 +47,8 @@ export default {
       fontSizeMax: 18,
       fontSizeMin: 13,
       fontSizeSteep: 0.5,
+
+      themeFlag: false,
     };
   },
   mounted() {
@@ -55,15 +57,26 @@ export default {
   methods: {
     ...mapMutations("webSet", ["changeThemeNext"]),
     ...mapMutations("font", ["setFontSzie"]),
+    // 回到顶部
     myScrollToTop() {
       scrollTo(0, 0);
     },
+    // 数量点击限制 2s过后才能继续点击
+    changeThemeNextFilter() {
+      if (this.themeFlag) return;
+      this.changeThemeNext();
+      this.themeFlag = true;
+      setTimeout(() => {
+        this.themeFlag = false;
+      }, 2000);
+    },
+    // 设置字体大小
     setFontSize() {
       var html = document.documentElement;
       html.style.fontSize = this.fontSize + "px";
       this.setFontSzie(this.fontSize);
     },
-
+    // 字体大小切换
     fontSizeChange(val) {
       this.fontSize += val * this.fontSizeSteep;
       this.fontSize =

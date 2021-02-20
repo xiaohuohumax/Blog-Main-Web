@@ -59,6 +59,8 @@ export default {
       second: 0,
       minute: 0,
       deg: 0,
+
+      timeout: null,
     };
   },
   methods: {
@@ -68,8 +70,12 @@ export default {
       return res > 0 ? res : 360 + res;
     },
   },
+  beforeDestroy() {
+    window.clearInterval(this.timeout);
+  },
   mounted() {
-    let appAll = this.$refs.appAll;
+    // 鼠标在吃豆人脸上移动监视
+    // let appAll = this.$refs.appAll;
     // appAll.addEventListener("mousemove", (e, obj) => {
     //     e = e ? e : window.event;
     //     this.deg = this.byXYGetDeg(
@@ -77,7 +83,7 @@ export default {
     //         e.clientY - appAll.offsetTop
     //     );
     // });
-    setInterval(() => {
+    this.timeout = window.setInterval(() => {
       let time = new Date();
       this.hour = time.getHours();
       this.second = time.getSeconds();
@@ -93,7 +99,6 @@ export default {
   min-width: 200px;
   width: 200px;
   height: 200px;
-  // overflow: hidden;
 
   .appAll {
     transform: rotate(var(--alldeg));
@@ -132,7 +137,6 @@ export default {
   }
 
   .appPacFace {
-    // display: none;
     width: 200px;
     height: 200px;
     transform: translate(-50%, -50%);
