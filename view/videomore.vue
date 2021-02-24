@@ -26,7 +26,7 @@
         </Button>
       </div>
       <div class="mb-3">
-        <p>标签(20):</p>
+        <p>标签:</p>
         <div class="mt-2">
           <Tag
             size="medium"
@@ -44,7 +44,7 @@
       <TalkBox :articleId="$route.params.id" :kind="kind" @onchange="selectComments" />
     </Card>
     <Card class="theme-card-background mb-3">
-      <div class="mb-2">评论(20):</div>
+      <div class="mb-2">评论:</div>
       <MessageBox :comments="contexts" />
     </Card>
     <div class="text-center">
@@ -80,8 +80,10 @@ export default {
   },
   async asyncData({ route, $http, redirect }) {
     try {
+      let video = (await $http.videomusicfindbyid(route.params.id)).data[0];
+      if (!video) throw new Error("");
       return {
-        video: (await $http.videomusicfindbyid(route.params.id)).data[0],
+        video,
       };
     } catch (error) {
       redirect("/Error404");

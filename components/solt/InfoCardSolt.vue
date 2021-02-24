@@ -1,7 +1,7 @@
 <template>
   <div class="infoCardSolt mb-3">
-    <Collapse>
-      <Panel name="1">
+    <Collapse value="1">
+      <Panel :name="name">
         <slot></slot>
         <slot name="content" slot="content"></slot>
       </Panel>
@@ -10,10 +10,22 @@
 </template>
 
 <script>
-export default {}
+export default {
+  props: {
+    open: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  computed: {
+    name() {
+      return this.open ? "1" : "0";
+    },
+  },
+};
 </script>
 
-<style lang='less'>
+<style lang="less">
 .infoCardSolt {
   .ivu-collapse-header {
     border-bottom: none !important;

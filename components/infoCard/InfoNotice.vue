@@ -35,9 +35,9 @@ export default {
       this.$http
         .noticeFindTop()
         .then((result) => {
-          let notice = result.data.notices[0];
-          if (result.flag && notice) {
-            this.notice = notice;
+          if (result.flag) {
+            let notice = result.data[0];
+            notice ? (this.notice = notice) : "";
             this.finded = true;
           } else {
             this.finded = false;
@@ -48,5 +48,3 @@ export default {
   },
 };
 </script>
-
-<style lang="less"></style>

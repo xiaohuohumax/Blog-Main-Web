@@ -1,5 +1,5 @@
 module.exports = {
-  backgroundUrl: "http://localhost1:8888", // 后台api 地址
+  backgroundUrl: "http://localhost:8888", // 后台api 地址
   websocketBaseURL: "ws://localhost:8890", // websocket 地址
   proxyPrefix: "/api",
   consoleInterrceptOpen: false, // 是否开启console拦截

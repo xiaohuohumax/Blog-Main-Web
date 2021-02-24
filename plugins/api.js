@@ -222,4 +222,9 @@ export default (http) => ({
     method: 'post',
     type: "text"
   }),
+
+  playListRandomFindOne: () => http({
+    url: '/user/api/playListRandomFindOne',
+    method: 'post',
+  }),
 });

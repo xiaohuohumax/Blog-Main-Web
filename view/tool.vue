@@ -4,7 +4,6 @@
       <Input
         suffix="ios-search"
         placeholder="搜索"
-        style="width: auto"
         v-model="selectWorld"
         @keydown.enter.native="selectInput"
       />

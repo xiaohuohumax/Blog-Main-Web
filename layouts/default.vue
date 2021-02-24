@@ -3,7 +3,7 @@
     <div class="defult-background">
       <Loading :loading="flag" @isover="isover" />
       <Nuxt />
-      <MusicPlayer :musics="musics" />
+      <MusicPlayer @randomplaylist="randomPlaylist" :playlist="playlist" />
     </div>
   </div>
 </template>
@@ -18,40 +18,18 @@ export default {
       loading: true,
       flag: true,
       link: null,
-
-      musics: [
-        {
-          url: "/audio/musics1.mp3",
-          icon: "/image/snow_fun_re.svg",
-          lrc: "",
-          author: "",
-          name: "",
-        },
-        {
-          url: "/audio/NUMB.mp3",
-          icon: "/image/snow_fun_re.sv",
-          lrc: "http://localhost:8888/virtualFile/eca1b0e6e4f1eca07c3304f66f71bd6b.lrc",
-          author: "",
-          name: "",
-        },
-        {
-          url: "/audio/Joke's On You.mp3",
-          icon: "/image/snow_fun_re.sv",
-          lrc: "http://localhost:8888/virtualFile/32d32f81d85218f0158467ee306af00d.lrc",
-          author: "",
-          name: "",
-        },
-      ],
+      playlist: {},
     };
   },
   mounted() {
-    this.linkWebsocket();
-    this.selectWebSet();
-    this.createLink();
+    this.linkWebsocket(); // 链接websocket
+    this.selectWebSet(); // 查询网站设置
+    this.createLink(); // 创建link标签
     this.changeLnkHref();
     setTimeout(() => {
       this.flag = false;
     }, 5000);
+    this.randomPlaylist(); // 查询歌单
   },
   watch: {
     // 网站状态监视
@@ -68,6 +46,19 @@ export default {
   methods: {
     ...mapMutations("webSet", ["addWebSet"]),
     ...mapMutations("user", ["putUser"]),
+    randomPlaylist() {
+      this.$http
+        .playListRandomFindOne()
+        .then((result) => {
+          if (result.flag) {
+            this.playlist = result.data;
+            this.$Message.success(`歌单已切换至[${this.playlist.title}]`);
+          } else {
+            this.$Message.error("切换失败!");
+          }
+        })
+        .catch((err) => this.$Message.error("切换失败!"));
+    },
     isover() {
       this.loading = false;
     },
@@ -75,7 +66,6 @@ export default {
       this.$http
         .webUserFindBySession()
         .then((result) => {
-          console.log(result);
           if (result.flag) {
             this.putUser(result.data);
           }

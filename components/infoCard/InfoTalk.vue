@@ -1,13 +1,11 @@
 <template>
-  <div class="talkCard">
-    <InfoCardSolt>
-      评论
-      <p slot="content">
-        <InfoTalkItem v-for="(item, index) in comments" :key="index" :comment="item" />
-        <Null v-if="comments.length == 0" />
-      </p>
-    </InfoCardSolt>
-  </div>
+  <InfoCardSolt>
+    评论
+    <p slot="content">
+      <InfoTalkItem v-for="(item, index) in comments" :key="index" :comment="item" />
+      <Null v-if="comments.length == 0" />
+    </p>
+  </InfoCardSolt>
 </template>
 
 <script>
@@ -32,7 +30,7 @@ export default {
         .commentRandom(6)
         .then((result) => {
           if (result.flag) {
-            this.comments = result.data.comments;
+            this.comments = result.data;
           }
         })
         .catch((err) => console.log(err));
@@ -40,5 +38,3 @@ export default {
   },
 };
 </script>
-
-<style></style>

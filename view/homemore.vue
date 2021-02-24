@@ -28,7 +28,7 @@
         </Button>
       </div>
       <div class="mb-3">
-        <p>标签(20):</p>
+        <p>标签:</p>
         <div class="mt-2">
           <Tag
             size="medium"
@@ -47,7 +47,7 @@
       <TalkBox :articleId="$route.params.id" :kind="kind" @onchange="selectComments" />
     </Card>
     <Card class="theme-card-background mb-3">
-      <div class="mb-2">评论(20):</div>
+      <div class="mb-2">评论:</div>
       <MessageBox :comments="contexts" />
     </Card>
     <div class="text-center">
@@ -83,8 +83,10 @@ export default {
   },
   async asyncData({ route, $http, redirect }) {
     try {
+      let article = (await $http.articleFindById(route.params.id)).data[0];
+      if (!article) throw new Error("");
       return {
-        article: (await $http.articleFindById(route.params.id)).data[0],
+        article,
       };
     } catch (error) {
       redirect("/Error404");

@@ -26,7 +26,7 @@
         </Button>
       </div>
       <div class="mb-3">
-        <p>标签(20):</p>
+        <p>标签:</p>
         <div class="mt-2">
           <Tag
             size="medium"
@@ -51,8 +51,10 @@ export default {
   },
   async asyncData({ route, $http, redirect }) {
     try {
+      let tool = (await $http.toolFindbyid(route.params.id)).data[0];
+      if (!tool) throw new Error("");
       return {
-        tool: (await $http.toolFindbyid(route.params.id)).data[0],
+        tool,
       };
     } catch (error) {
       redirect("/Error404");

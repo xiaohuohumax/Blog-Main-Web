@@ -1,17 +1,14 @@
 <template>
-<div class="talkCard">
-    <InfoCardSolt>
-        时间
-        <p slot="content">
-            <Clock />
-        </p>
-    </InfoCardSolt>
-</div>
+  <InfoCardSolt :open="false">
+    时间
+    <p slot="content">
+      <Clock />
+    </p>
+  </InfoCardSolt>
 </template>
 
 <script>
-export default {}
+export default {};
 </script>
 
-<style>
-</style>
+<style></style>

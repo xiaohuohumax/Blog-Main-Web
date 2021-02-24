@@ -4,8 +4,8 @@
       <div class="font-weight-bold">{{ time.notice }}</div>
       <div class="small">{{ time.uploadTime }}</div>
       <img
-        v-if="time.icon && time.icon.length > 0"
-        :src="time.icon[0]"
+        v-if="time.icon"
+        :src="time.icon"
         class="time-card-icon rounded"
       />
     </Card>
