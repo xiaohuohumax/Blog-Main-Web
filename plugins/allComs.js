@@ -44,6 +44,14 @@ let allComs = {
   Banner: () => import('@/components/layout/Banner'), // 横幅
   HistoryNavLeft: () => import('@/components/layout/HistoryNavLeft'), // 历史记录
   Tools: () => import('@/components/layout/Tools'), // 右侧工具
+
+  // 全局组件
+  GlobalFont: () => import('@/components/global/GlobalFont'), // 字体
+  GlobalLine: () => import('@/components/global/GlobalLine'), // 网络连接
+  GlobalTheme: () => import('@/components/global/GlobalTheme'), // 主题
+  GlobalWebSet: () => import('@/components/global/GlobalWebSet'), // 网站设置
+  GlobalWebsocket: () => import('@/components/global/GlobalWebsocket'), // websocket
+  GlobalWebState: () => import('@/components/global/GlobalWebState'), // websocket
 }
 
 for (const key in allComs) {

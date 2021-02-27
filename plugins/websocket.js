@@ -3,8 +3,12 @@ import config from '../config'
 let websocketBaseURL = config.websocketBaseURL;
 
 // websocket 封装
+// 错误重连次数 负数一直
 class websocketModel {
-  constructor(params) {
+  constructor(params = {
+    url: websocketBaseURL,
+    connectionMax: -1,
+  }) {
     this.params = params;
     this.messageCallBack = [];
     this.connectionSum = 0;
@@ -44,13 +48,9 @@ class websocketModel {
   sendMessage(msgJson) {
     this.websocket.send(msgJson);
   }
+  close() {
+    this.websocket.close()
+  }
 }
 
-let params = {
-  url: websocketBaseURL,
-  connectionMax: -1, // 错误重连次数 负数一直
-}
-
-export default ({}, inject) => {
-  inject('websocket', new websocketModel(params));
-}
+export default websocketModel;

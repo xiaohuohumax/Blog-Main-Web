@@ -36,7 +36,7 @@ export default {
         .noticeFindTop()
         .then((result) => {
           if (result.flag) {
-            let notice = result.data[0];
+            let notice = result.data;
             notice ? (this.notice = notice) : "";
             this.finded = true;
           } else {

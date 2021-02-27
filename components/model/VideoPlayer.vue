@@ -6,7 +6,6 @@
         :src="videosrc"
         ref="appVideo"
         webkit-playsinline="true"
-        :poster="icon"
         x5-video-player-type="h5"
         x5-video-orientation="portraint"
       ></video>

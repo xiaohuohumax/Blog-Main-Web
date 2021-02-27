@@ -196,7 +196,6 @@ export default {
     // 拷贝歌单 并添加错误计数
     copyList() {
       const musics = this.playlist.songInf;
-      console.log(musics);
       if (!musics) return;
       this.musicsCheckedList = [].concat(musics).map((val) => ({ ...val, _errorSum: 0 }));
       this.playLoad();
