@@ -90,3 +90,6 @@ textarea {
 .icon-card {
   object-fit: cover;
 }
+.ivu-notice {
+  margin-right: 0.5rem !important;
+}

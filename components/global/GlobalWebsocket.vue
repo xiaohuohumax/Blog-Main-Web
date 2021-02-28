@@ -4,7 +4,6 @@
 
 <script>
 import { mapState, mapMutations } from "vuex";
-import websocket from "@/plugins/websocket";
 import websocketCode from "@/plugins/websocketCode";
 export default {
   mounted() {
@@ -15,8 +14,7 @@ export default {
     ...mapMutations("user", ["putUser"]),
     // 连接webosocket
     linkWebsocket() {
-      this.websocket = new websocket();
-      this.websocket.onmessage((code, data) => {
+      this.$websocket.onmessage((code, data) => {
         if (code == websocketCode.FLUSH_WEBSET) {
           this.selectWebSet();
           this.$Notice.warning({

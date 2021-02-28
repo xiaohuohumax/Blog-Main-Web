@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState ,mapGetters} from "vuex";
 export default {
   data() {
     return {
@@ -36,6 +36,7 @@ export default {
   },
   computed: {
     ...mapState("webSet", ["theme"]),
+    ...mapGetters("webSet", ["themeUrl"]),
   },
 };
 </script>

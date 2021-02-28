@@ -1,5 +1,5 @@
 <template>
-  <div class="music-player d-none d-lg-block">
+  <div class="music-player">
     <div class="music-player-left">
       <div class="music-player-control">
         <audio
@@ -89,9 +89,9 @@
     <div
       v-show="wordShow"
       class="theme-card-background rounded music-player-word text-center mb-2"
-      style="min-width: 40rem; min-height: 1rem"
+      style="min-height: 1rem"
     >
-      <div class="font-weight-bold" style="font-size: 1.5rem">
+      <div class="font-weight-bold" style="font-size: 1.25rem">
         {{ lrcWord }}
       </div>
       <div class="music-player-word-sub">{{ musicName }}-[{{ playlist.title }}]</div>
@@ -387,6 +387,13 @@ export default {
     left: 50%;
     animation: text 5s linear infinite;
     color: transparent;
+      width: 75vw;
+      max-width: 75vw;
+    :nth-child(0) {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
     transform: translate(-50%, 0);
     &:hover .music-player-word-sub {

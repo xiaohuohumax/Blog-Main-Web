@@ -15,6 +15,7 @@ export default {
   data() {
     return {
       playlist: {},
+      create: false, // 创建查询排除
     };
   },
   mounted() {
@@ -27,12 +28,15 @@ export default {
         .then((result) => {
           if (result.flag) {
             this.playlist = result.data;
-            this.$Message.success(`歌单已切换至[${this.playlist.title}]`);
+            this.create
+              ? this.$Message.success(`歌单已切换至[${this.playlist.title}]`)
+              : "";
           } else {
-            this.$Message.error("切换失败!");
+            this.create ? this.$Message.error("切换失败!") : "";
           }
         })
-        .catch((err) => this.$Message.error("切换失败!"));
+        .catch((err) => (this.create ? this.$Message.error("切换失败!") : ""))
+        .finally(() => (this.create = true));
     },
   },
 };

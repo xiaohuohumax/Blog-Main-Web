@@ -51,6 +51,10 @@ export default {
       src: '@/plugins/routerBeforeEach',
       mode: 'client'
     },
+    {
+      src: '@/plugins/websocket',
+      mode: 'client'
+    },
     '@/plugins/allComs',
     '@/plugins/swiper',
   ],

@@ -53,4 +53,6 @@ class websocketModel {
   }
 }
 
-export default websocketModel;
+export default ({}, inject) => {
+  inject('websocket', new websocketModel());
+}

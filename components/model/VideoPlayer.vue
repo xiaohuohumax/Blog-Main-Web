@@ -5,6 +5,8 @@
         class="appVideo w-100 mb-0 rounded-top"
         :src="videosrc"
         ref="appVideo"
+        object-fit="fill"
+        :poster="icon"
         webkit-playsinline="true"
         x5-video-player-type="h5"
         x5-video-orientation="portraint"
@@ -297,6 +299,13 @@ export default {
       this.appVideo.addEventListener("timeupdate", this.timeupdateListener);
       // 窗口变化
       window.addEventListener("resize", this.windowResizeListener);
+      this.setVideoSize();
+    },
+    // 设置video 比例 16:9
+    setVideoSize() {
+      let width = this.appVideo.offsetWidth;
+      let newHeight = (width * 9) / 16;
+      this.appVideo.style.height = newHeight + "px";
     },
     canplayListener() {
       this.canPaly = true;

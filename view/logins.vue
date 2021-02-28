@@ -14,7 +14,7 @@
       >
         <h2 class="mb-2 mt-2">Welcome</h2>
         <div class="d-block d-md-none">
-          <span @click="$router.go('/')">xiaohuohu</span>
+          <span @click="$router.push('/')">xiaohuohu</span>
         </div>
         <div class="text-center mb-4 small">
           <span
