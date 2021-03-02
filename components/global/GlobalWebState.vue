@@ -11,10 +11,22 @@ export default {
       this.webSet.webState ? this.$router.go(-1) : this.$router.push("/maintenance");
     },
   },
+  mounted() {
+    this.selectWebSet();
+  },
   computed: {
     ...mapState("webSet", ["webSet"]),
   },
+  methods: {
+    // 查询网站设置
+    selectWebSet() {
+      this.$http
+        .webSetFindOnly()
+        .then((result) => {
+          this.addWebSet(result.data);
+        })
+        .catch((err) => {});
+    },
+  },
 };
 </script>
-
-<style></style>

@@ -48,9 +48,13 @@ export default {
       src: '@/plugins/http',
     },
     {
+      src: '@/plugins/authority',
+    },
+    {
       src: '@/plugins/routerBeforeEach',
       mode: 'client'
     },
+
     {
       src: '@/plugins/websocket',
       mode: 'client'

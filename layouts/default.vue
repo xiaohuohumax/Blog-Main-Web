@@ -1,14 +1,15 @@
 <template>
-  <div class="theme-background bg-dark theme-color">
+  <div id="app" class="theme-background bg-dark theme-color">
+    <GlobalAuth />
+    <GlobalFont />
+    <GlobalLine />
+    <GlobalTheme />
+    <GlobalWebSet />
+    <GlobalWebsocket />
+    <GlobalWebState />
     <div class="defult-background">
       <Loading :loading="flag" @isover="isover" />
       <Nuxt />
-      <GlobalFont />
-      <GlobalLine />
-      <GlobalTheme />
-      <GlobalWebSet />
-      <GlobalWebsocket />
-      <GlobalWebState />
     </div>
   </div>
 </template>
@@ -40,6 +41,9 @@ export default {
 </script>
 
 <style lang="less">
+#app {
+  cursor: url("/static/mouse/Teemo/link.cur"), auto;
+}
 .defult-background {
   transition: none !important;
 }

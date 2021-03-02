@@ -7,6 +7,7 @@
     ></Button>
     <div class="tools-items flex-column align-items-end d-flex">
       <Button
+        v-if="$authres(['view_righttoolssize_button'])"
         class="mt-2 theme-card-background"
         icon="md-add"
         title="放大"
@@ -14,6 +15,7 @@
         @click="fontSizeChange(1)"
       ></Button>
       <Button
+        v-if="$authres(['view_righttoolssize_button'])"
         class="mt-2 theme-card-background"
         icon="md-remove"
         title="缩小"
@@ -21,6 +23,7 @@
         @click="fontSizeChange(-1)"
       ></Button>
       <Button
+        v-if="$authres(['view_changetheme_button'])"
         class="mt-2 theme-card-background"
         icon="ios-bowtie"
         title="换肤"

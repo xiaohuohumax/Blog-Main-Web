@@ -5,7 +5,6 @@
         class="appVideo w-100 mb-0 rounded-top"
         :src="videosrc"
         ref="appVideo"
-        object-fit="fill"
         :poster="icon"
         webkit-playsinline="true"
         x5-video-player-type="h5"
@@ -335,6 +334,7 @@ export default {
     },
     windowResizeListener() {
       this.setCanvasSize();
+      this.setVideoSize();
     },
     // 静音
     vSoundOpen() {

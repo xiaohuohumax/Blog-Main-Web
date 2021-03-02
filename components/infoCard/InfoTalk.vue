@@ -18,8 +18,7 @@ export default {
   },
   mounted() {
     this.selectComments();
-
-    // this.setTime = window.setInterval(this.selectComments, 30000);
+    this.setTime = window.setInterval(this.selectComments, 60000);
   },
   beforeDestroy() {
     clearInterval(this.setTime);
@@ -33,7 +32,7 @@ export default {
             this.comments = result.data;
           }
         })
-        .catch((err) => console.log(err));
+        .catch(() => {});
     },
   },
 };

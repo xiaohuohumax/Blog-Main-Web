@@ -3,11 +3,15 @@
     class="theme-card-background theme-header-color bg-white header px-2 px-md-5 py-2 shadow flex-between-center sticky-top"
   >
     <div class="flex-center">
-      <div class="font-weight-bold" style="font-size: 1.2rem" :title="webSet.webDescription">
+      <div
+        class="font-weight-bold"
+        style="font-size: 1.2rem"
+        :title="webSet.webDescription"
+      >
         {{ webSet.webName }}
       </div>
       <ul class="nav">
-        <li class="nav-item px-2" v-for="(item, index) in navArray" :key="index">
+        <li class="nav-item px-2" v-for="(item, index) in menu" :key="index">
           <nuxt-link :to="item.path" class="theme-header-color">
             <Icon :type="item.icon" />
             <span class="d-none d-md-inline">
@@ -17,15 +21,17 @@
         </li>
       </ul>
     </div>
-    <div v-if="logined" class="flex-center">
-      <nuxt-link to="/userinf" class="theme-header-color">
-        <img :src="inf.icon" class="header-user-icon icon-card rounded-circle" />
-      </nuxt-link>
-      <a class="ml-2" @click="logouted">注销</a>
-    </div>
-    <div v-else class="flex-center">
-      <div class="rounded-circle p-3"></div>
-      <nuxt-link to="/logins" class="theme-header-color">注册登录</nuxt-link>
+    <div v-if="$authres(['view_top_loginlogon_button'])">
+      <div v-if="logined" class="flex-center">
+        <nuxt-link to="/userinf" class="theme-header-color">
+          <img :src="inf.icon" class="header-user-icon icon-card rounded-circle" />
+        </nuxt-link>
+        <a class="ml-2" @click="logouted">注销</a>
+      </div>
+      <div v-else class="flex-center">
+        <div class="rounded-circle p-3"></div>
+        <nuxt-link to="/logins" class="theme-header-color">注册登录</nuxt-link>
+      </div>
     </div>
   </div>
 </template>
@@ -34,41 +40,10 @@
 import { mapState, mapMutations } from "vuex";
 
 export default {
-  name: "",
-  data() {
-    return {
-      navArray: [
-        {
-          name: "首页",
-          icon: "ios-planet",
-          path: "/",
-        },
-        {
-          name: "音乐视频",
-          icon: "ios-videocam",
-          path: "/video",
-        },
-        {
-          name: "图包分享",
-          icon: "md-images",
-          path: "/image",
-        },
-        {
-          name: "在线工具",
-          icon: "md-hammer",
-          path: "/tool",
-        },
-        {
-          name: "时间轴",
-          icon: "md-alarm",
-          path: "/time",
-        },
-      ],
-    };
-  },
   computed: {
     ...mapState("user", ["key", "inf", "logined"]),
     ...mapState("webSet", ["webSet"]),
+    ...mapState("auth", ["menu"]),
   },
   methods: {
     ...mapMutations("user", ["logouted"]),
@@ -79,7 +54,7 @@ export default {
 <style lang="less">
 .header {
   z-index: 30;
-  .header-user-icon{
+  .header-user-icon {
     width: 2rem;
     height: 2rem;
   }

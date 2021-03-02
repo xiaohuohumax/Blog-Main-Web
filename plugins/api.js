@@ -227,4 +227,8 @@ export default (http) => ({
     url: '/user/api/playListRandomFindOne',
     method: 'post',
   }),
+  getDefRolesResources: () => http({
+    url: '/user/api/getDefRolesResources',
+    method: 'post',
+  }),
 });

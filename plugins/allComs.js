@@ -39,7 +39,6 @@ let allComs = {
 
   // 布局
   Header: () => import('@/components/layout/Header'), // 页眉
-  Body: () => import('@/components/layout/Body'), // 主体
   Footer: () => import('@/components/layout/Footer'), // 页脚
   Banner: () => import('@/components/layout/Banner'), // 横幅
   HistoryNavLeft: () => import('@/components/layout/HistoryNavLeft'), // 历史记录
@@ -52,6 +51,7 @@ let allComs = {
   GlobalWebSet: () => import('@/components/global/GlobalWebSet'), // 网站设置
   GlobalWebsocket: () => import('@/components/global/GlobalWebsocket'), // websocket
   GlobalWebState: () => import('@/components/global/GlobalWebState'), // websocket
+  GlobalAuth: () => import('@/components/global/GlobalAuth'),
 }
 
 for (const key in allComs) {

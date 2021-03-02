@@ -24,7 +24,7 @@ export default {
   },
   mounted() {
     this.select();
-    // this.setTime = window.setInterval(this.select, 30000);
+    this.setTime = window.setInterval(this.select, 30000);
   },
   destroyed() {
     clearInterval(this.setTime);
@@ -43,7 +43,7 @@ export default {
             this.finded = false;
           }
         })
-        .catch((err) => (this.finded = false));
+        .catch(() => (this.finded = false));
     },
   },
 };

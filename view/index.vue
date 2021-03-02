@@ -1,12 +1,11 @@
 <template>
-  <div class="app">
-    <Header />
-    <Banner />
-
-    <Body />
-    <Footer />
-    <Tools />
-    <MusicPlayer @randomplaylist="randomPlaylist" :playlist="playlist" />
+  <div>
+    <router-view></router-view>
+    <MusicPlayer
+      v-if="$authres(['view_musicplayer'])"
+      @randomplaylist="randomPlaylist"
+      :playlist="playlist"
+    />
   </div>
 </template>
 
@@ -41,9 +40,3 @@ export default {
   },
 };
 </script>
-
-<style lang="less">
-.app {
-  min-height: 100vh;
-}
-</style>

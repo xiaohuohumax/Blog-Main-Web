@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapMutations } from "vuex";
 import config from "@/config";
 export default {
   data() {
@@ -88,6 +88,7 @@ export default {
   },
   methods: {
     ...mapMutations("user", ["putUser"]),
+    ...mapMutations("auth", ["authInit"]),
 
     // 刷新验证码
     changeCode() {
@@ -106,6 +107,7 @@ export default {
             .then((result) => {
               if (result.flag) {
                 // 登录成功
+                this.authInit(result.data);
                 this.putUser(result.data); // 保存信息到仓库
                 this.$router.go(-1);
               } else {
@@ -115,7 +117,7 @@ export default {
                 this.changeCode();
               }
             })
-            .catch((err) => {});
+            .catch(() => {});
         } else {
           this.$Message.error("信息不符合要求呦!");
         }

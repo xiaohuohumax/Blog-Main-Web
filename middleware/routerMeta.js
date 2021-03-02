@@ -1,6 +1,7 @@
 export default ({
   route,
   store,
+  router,
   redirect
 }) => {
   // route.matched.forEach((item, index) => {
@@ -18,4 +19,5 @@ export default ({
   //   console.log(store.state.webSet)
   //   store.state.webSet && store.state.webSet.webState && redirect("/")
   // }
+  // console.log(route.meta+"==========")
 }
